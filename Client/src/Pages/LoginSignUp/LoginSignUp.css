@@ -1,0 +1,41 @@
+.login-signup {
+    width: 100vw;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.login-signup .box-container {
+    padding: 20px 30px;
+    border: 1px solid gray;
+}
+
+.login-signup .box-container .input-container,
+.login-signup .box-container .otp-container {
+    display: flex;
+    width: 340px;
+    height: 35px;
+    gap: 12px;
+}
+
+.login-signup .box-container .input-container input {
+    width: 100%;
+    padding-left: 12px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.login-signup .box-container .input-container button {
+    cursor: pointer;
+}
+
+.login-signup .box-container .otp-container input {
+    width: 30px;
+}
+
+.login-signup .box-container .otp-container button {
+    width: 120px;
+    cursor: pointer;
+}
