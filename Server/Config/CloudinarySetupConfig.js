@@ -11,6 +11,8 @@ const cloudinarySetup = (cloudeName, cloudApiKey, cloudApiSecret) => {
     api_key: cloudApiKey,
     api_secret: cloudApiSecret,
   });
+
+  console.log(`Cloudinary setup done!!!`)
 }
 
 
