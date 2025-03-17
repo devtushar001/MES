@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 const UpdatedRawMaterial = () => {
     const [addNew, setAddNew] = useState(false);
     const [inOUt, setInOut] = useState(false);
-    const { backend_url,  rawMaterials, setRawMaterials } = useContext(MesContext);
+    const [productId, setProductId] = useState("");
+    const { backend_url, rawMaterials, setRawMaterials } = useContext(MesContext);
     const [productImage, setProductImage] = useState({ type: "single", selection: false, image: null });
     const [rawData, setRawData] = useState({
         materialName: "",
@@ -209,7 +210,7 @@ const UpdatedRawMaterial = () => {
                                         <td>{material.quantity}</td>
                                         <td>{material.color}</td>
                                         <td>
-                                            <button className="updated-btn updated-btn-primary">
+                                            <button onClick={() => { setInOut(true); setProductId(material._id) }} className="updated-btn updated-btn-primary">
                                                 Update
                                             </button>
                                             <button
@@ -226,21 +227,39 @@ const UpdatedRawMaterial = () => {
                     )
                 )}
             </div>
-            {!inOUt ? <div className="edit-in-out">
-                <select name="products" id="products">
-                    <option value="Select Option">Select product name</option>
-                </select>
-            </div> : <></>}
-            <div className="in-out">
-                <Link className="no-style" to="/raw-material/raw-in-edit">  <div className="raw-in">IN</div></Link>
-                <Link className="no-style" to="/raw-material/raw-in-edit"> <div className="raw-out">OUT</div></Link>
-            </div>
+            {inOUt ? <div className="edit-in-out">
+                <div className="container">
+                    <h2>Update Raw Material</h2>
+                    <div className="close" onClick={() => setInOut(false)}>X</div>
+                    {rawMaterials.map((item, i) => {
+                        if (item._id === productId) {
+                            return (
+                                <div style={{ padding: "10px",gap: "12px", display: "flex", alignItems: "center" }} key={i} className="product-details">
 
-            {/* <div className="controller">
+                                    <img style={{ maxWidth: "110px" }} src={item.imageUrl} alt="" />
+                                    <p>{item.materialName}</p>
+                                </div>
+                            );
+                        }
+                    })}
+                    <select name="update-type" id="update-type">
+                        <option value="IN">IN</option>
+                        <option value="OUT">OUT</option>
+                    </select>
+                    <input type="number" name="quantity" id="quantity" />
+                    <button>Submit</button>
+                </div>
+            </div> : <></>}
+            {/* <div className="in-out">
+                <div onClick={() => setInOut(true)} className="raw-in">IN</div>
+                <div className="raw-out">OUT</div>
+            </div> */}
+
+            <div className="controller">
                 <div className="previous">Prev.</div>
                 <div className="page">1/3</div>
                 <div className="next">Next</div>
-            </div> */}
+            </div>
         </>
     );
 };
