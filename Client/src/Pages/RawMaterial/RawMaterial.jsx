@@ -225,6 +225,10 @@ const UpdatedRawMaterial = () => {
                     )
                 )}
             </div>
+            <div className="in-out">
+               <div className="raw-in">IN</div>
+               <div className="raw-out">OUT</div>
+            </div>
             <div className="controller">
                 <div className="previous">Prev.</div>
                 <div className="page">1/3</div>
