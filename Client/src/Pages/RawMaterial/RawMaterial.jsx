@@ -3,11 +3,12 @@ import './RawMaterial.css';
 import ImageUploader from "../../Component/ImageUploader/ImageUploader";
 import { MesContext } from "../../Context/MesContextProvider";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const UpdatedRawMaterial = () => {
     const [addNew, setAddNew] = useState(false);
-    const { backend_url } = useContext(MesContext);
-    const [rawMaterials, setRawMaterials] = useState([]);
+    const [inOUt, setInOut] = useState(false);
+    const { backend_url,  rawMaterials, setRawMaterials } = useContext(MesContext);
     const [productImage, setProductImage] = useState({ type: "single", selection: false, image: null });
     const [rawData, setRawData] = useState({
         materialName: "",
@@ -225,15 +226,21 @@ const UpdatedRawMaterial = () => {
                     )
                 )}
             </div>
+            {!inOUt ? <div className="edit-in-out">
+                <select name="products" id="products">
+                    <option value="Select Option">Select product name</option>
+                </select>
+            </div> : <></>}
             <div className="in-out">
-               <div className="raw-in">IN</div>
-               <div className="raw-out">OUT</div>
+                <Link className="no-style" to="/raw-material/raw-in-edit">  <div className="raw-in">IN</div></Link>
+                <Link className="no-style" to="/raw-material/raw-in-edit"> <div className="raw-out">OUT</div></Link>
             </div>
-            <div className="controller">
+
+            {/* <div className="controller">
                 <div className="previous">Prev.</div>
                 <div className="page">1/3</div>
                 <div className="next">Next</div>
-            </div>
+            </div> */}
         </>
     );
 };
