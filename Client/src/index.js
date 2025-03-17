@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import MesContextProvider from './Context/MesContextProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <App />
+    <MesContextProvider>
+      <App />
+    </MesContextProvider>
   </BrowserRouter>
 );
-
 reportWebVitals();

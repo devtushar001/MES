@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./ImageUploader.css";
 import { toast } from "react-toastify";
+import { MesContext } from "../../Context/MesContextProvider";
 
 const ImageUploader = ({ object, imageSelector }) => {
     const [image, setImage] = useState(null);
     const [images, setImages] = useState([]);
+    const { backend_url } = useContext(MesContext);
 
-    // const [featuredImage, setFeaturedImage] = useState({ type: "single", selection: false, image: null });
+    useEffect(() => {
+        console.log(backend_url)
+    }, [])
 
-    const backend_url = "url";
     const fetchImages = async () => {
         try {
             const response = await fetch(`${backend_url}/api/images/image`);
