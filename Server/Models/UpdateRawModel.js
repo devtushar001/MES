@@ -9,7 +9,7 @@ const UpdateRawSchema = new mongoose.Schema(
         },
         changeType: {
             type: String,
-            enum: ["IN", "OUT"],
+            enum: ["in", "out"],
             required: true
         },
         currentQuantity: {

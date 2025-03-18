@@ -6,6 +6,7 @@ import connectDb from './Config/connectDb.js';
 import cloudinarySetup from './Config/CloudinarySetupConfig.js';
 import imageRouter from './Routes/ImageUploaderRouter.js';
 import RawMaterialRouter from './Routes/RawMaterialRoute.js';
+import UpdateRawRoute from './Routes/UpdateRawRoute.js';
 
 dotenv.config();
 const cloudeName = process.env.CLOUDINARY_CLOUD_NAME, cloudApiKey = process.env.CLOUDINARY_API_KEY, cloudApiSecret = process.env.CLOUDINARY_API_SECRET, mongo_url = process.env.MONGODB_URL, port = process.env.PORT;
@@ -26,7 +27,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/images', imageRouter);
-app.use('/api/raw-material', RawMaterialRouter)
+app.use('/api/raw-material', RawMaterialRouter);
+app.use('/api/update-raw', UpdateRawRoute);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
