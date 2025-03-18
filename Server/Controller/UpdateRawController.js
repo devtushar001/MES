@@ -77,3 +77,36 @@ export const CreateUpdateRawController = async (req, res) => {
         });
     }
 };
+
+
+export const GetUpdateRawController = async (req, res) => {
+    try {
+        const getUpdatedData = await UpdateRawModel.find().sort({ createdAt: -1 });
+
+        if (getUpdatedData.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No updates found"
+            });
+        }
+
+        // Fetch product details for the latest update
+        const latestUpdate = getUpdatedData[0]; // Get the latest update
+        const findProduct = await RawModel.findById(latestUpdate.ProductId);
+
+        return res.status(200).json({
+            success: true,
+            message: "Successfully fetched all updates",
+            data: getUpdatedData,
+            productData: findProduct || null // Return null if product not found
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "API encountered an internal error",
+            error: error.message
+        });
+    }
+};
+
