@@ -119,6 +119,7 @@ const UpdatedRawMaterial = () => {
                     <button onClick={() => setAddNew(!addNew)}>
                         {!addNew ? "Add New Product" : "Close"}
                     </button>
+                    <input type="text" placeholder="Search item"/>
                 </div>
 
                 {addNew && (
@@ -196,7 +197,7 @@ const UpdatedRawMaterial = () => {
                             </thead>
                             <tbody>
                                 {rawMaterials.map((material, index) => (
-                                    <tr key={material.id}>
+                                    <tr key={material._id}>
                                         <td>{index + 1}</td>
                                         <td>{material.materialName}</td>
                                         <td>
@@ -235,9 +236,9 @@ const UpdatedRawMaterial = () => {
                         if (item._id === productId) {
                             return (
                                 <div style={{ padding: "10px",gap: "12px", display: "flex", alignItems: "center" }} key={i} className="product-details">
-
                                     <img style={{ maxWidth: "110px" }} src={item.imageUrl} alt="" />
-                                    <p>{item.materialName}</p>
+                                    <p>{item.materialName}&#44;</p>
+                                    <p>Current-Qty: {item.quantity}</p>
                                 </div>
                             );
                         }
@@ -246,7 +247,7 @@ const UpdatedRawMaterial = () => {
                         <option value="IN">IN</option>
                         <option value="OUT">OUT</option>
                     </select>
-                    <input type="number" name="quantity" id="quantity" />
+                    <input type="number" name="quantity" id="quantity" placeholder="Quantity" />
                     <button>Submit</button>
                 </div>
             </div> : <></>}

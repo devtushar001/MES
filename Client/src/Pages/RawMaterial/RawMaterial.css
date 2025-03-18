@@ -4,6 +4,21 @@
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
+.updated-raw-material .updated-controll-form-btn {
+    padding: 10px 20px;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.updated-raw-material .updated-controll-form-btn button,
+.updated-raw-material .updated-controll-form-btn input {
+    height: 35px;
+    min-width: 370px;
+    outline-color: #218838;
+}
+
 .updated-table.updated-table-bordered {
     width: 100%;
     padding: 20px;
