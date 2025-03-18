@@ -153,7 +153,7 @@ const UpdatedRawMaterial = () => {
                             value={rawData.description}
                             onChange={handleChange}
                             name="description"
-                            placeholder="Description"
+                            placeholder="Searching keyword"
                         />
 
                         <div className="updated-material-info">

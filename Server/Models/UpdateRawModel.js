@@ -12,6 +12,11 @@ const UpdateRawSchema = new mongoose.Schema(
             enum: ["IN", "OUT"],
             required: true
         },
+        currentQuantity: {
+            type: Number,
+            required: true,
+            min: 1
+        },
         quantity: {
             type: Number,
             required: true,

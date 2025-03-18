@@ -9,7 +9,7 @@ const RawSchema = new mongoose.Schema(
         },
         imageUrl: {
             type: String,
-            default: "<a href='https://www.flaticon.com/free-icons/picture' title='picture icons'>Picture icons created by Freepik - Flaticon</a>"
+            default: "https://res.cloudinary.com/ddiwvmwzg/image/upload/v1742300773/mern-uploads/horrbcetabmixipiok2i.jpg"
         },
         description: {
             type: String,
