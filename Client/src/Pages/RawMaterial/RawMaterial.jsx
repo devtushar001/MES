@@ -135,8 +135,8 @@ const UpdatedRawMaterial = () => {
             }
 
             toast.success("Raw material updated successfully!");
-
             fetchProduct();
+            setData((prev) => ({ ...prev, changeType: "in" }))
             setInOut(false);
         } catch (error) {
             toast.error(`${error.name}: ${error.message}`);
