@@ -6,11 +6,26 @@ import { MesContext } from "../../Context/MesContextProvider";
 const Home = () => {
     const { readDate, backend_url } = useContext(MesContext);
     const [fetchedData, setFetchedData] = useState([]);
-    
+    const [inputDate, setInputDate] = useState("");
+
+    useEffect(() => {
+        const getCurrentDate = () => {
+            const currentDate = new Date();
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const year = currentDate.getFullYear();
+            const formatCurrentDate = `${year}-${month}-${day}`;
+            setInputDate(formatCurrentDate);
+        };
+
+        getCurrentDate();
+    }, []);
 
     const fetchRecentUpdate = async () => {
+        if (!inputDate) return; // Prevent fetch if date is empty
+
         try {
-            const res = await fetch(`${backend_url}/api/update-raw/get-update`, {
+            const res = await fetch(`${backend_url}/api/update-raw/get-update/${inputDate}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': "application/json"
@@ -32,12 +47,25 @@ const Home = () => {
 
     useEffect(() => {
         fetchRecentUpdate();
-    }, []);
+    }, [inputDate]); // Fetch updates when inputDate changes
 
     return (
         <>
             <div className="recent-update">
-                <h2>Recent Updates</h2>
+                <div className="filter-method">
+                    <h2>Recent Updates</h2>
+                    <div className="date-selecton">
+                        <p>Select Date</p>
+                        <input 
+                            onChange={(e) => setInputDate(e.target.value)} 
+                            value={inputDate} 
+                            type="date" 
+                            name="date" 
+                            id="date" 
+                        />
+                        <button onClick={fetchRecentUpdate}>Search data</button>
+                    </div>
+                </div>
                 {fetchedData.length === 0 ? (
                     <p>No recent updates available.</p>
                 ) : (
@@ -54,8 +82,8 @@ const Home = () => {
                         <tbody>
                             {fetchedData.map((update) => (
                                 <tr key={update._id}>
-                                    <td>{update.ProductId}</td>
-                                    <td>{update.changeType.toUpperCase()}</td>
+                                    <td>{update.ProductData.name}</td>
+                                    <td>{update.changeType.toLowerCase()}</td>
                                     <td>{update.quantity}</td>
                                     <td>{update.currentQuantity}</td>
                                     <td>{readDate(update.updatedAt)}</td>

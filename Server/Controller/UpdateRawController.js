@@ -3,8 +3,9 @@ import UpdateRawModel from "../Models/UpdateRawModel.js";
 
 export const CreateUpdateRawController = async (req, res) => {
     try {
+
         let { ProductId, changeType, quantity } = req.body;
-        console.log(req.body)
+
         if (!ProductId || !changeType || !quantity) {
             return res.status(400).json({
                 success: false,
@@ -50,7 +51,11 @@ export const CreateUpdateRawController = async (req, res) => {
         await rawProduct.save();
 
         const updateRaw = await UpdateRawModel.create({
-            ProductId,
+            ProductData: {
+                productId: rawProduct._id,
+                name: rawProduct.materialName,
+                image: rawProduct.imageUrl || "https://surl.li/raobve"
+            },
             changeType,
             currentQuantity: rawProduct.quantity,
             quantity
@@ -70,6 +75,7 @@ export const CreateUpdateRawController = async (req, res) => {
         });
 
     } catch (error) {
+        console.log(error.name + ":" + error.message)
         return res.status(500).json({
             success: false,
             message: "API encountered an internal error",
@@ -78,27 +84,39 @@ export const CreateUpdateRawController = async (req, res) => {
     }
 };
 
-
 export const GetUpdateRawController = async (req, res) => {
     try {
-        const getUpdatedData = await UpdateRawModel.find().sort({ createdAt: -1 });
+        const { date } = req.params;
+        console.log("Requested Date:", date);
 
-        if (getUpdatedData.length === 0) {
-            return res.status(404).json({
+        if (!date) {
+            return res.status(400).json({
                 success: false,
-                message: "No updates found"
+                message: "Date parameter is required"
             });
         }
 
-        // Fetch product details for the latest update
-        const latestUpdate = getUpdatedData[0]; // Get the latest update
-        const findProduct = await RawModel.findById(latestUpdate.ProductId);
+        const startDate = new Date(date);
+        startDate.setUTCHours(0, 0, 0, 0);
+
+        const endDate = new Date(date);
+        endDate.setUTCHours(23, 59, 59, 999);
+
+        const getUpdatedData = await UpdateRawModel.find({
+            createdAt: { $gte: startDate, $lt: endDate }
+        }).sort({ createdAt: -1 });
+        
+        if (getUpdatedData.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No updates found for the given date"
+            });
+        }
 
         return res.status(200).json({
             success: true,
-            message: "Successfully fetched all updates",
-            data: getUpdatedData,
-            productData: findProduct || null // Return null if product not found
+            message: "Successfully fetched updates for the given date",
+            data: getUpdatedData
         });
 
     } catch (error) {
@@ -109,4 +127,3 @@ export const GetUpdateRawController = async (req, res) => {
         });
     }
 };
-

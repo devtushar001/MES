@@ -1,10 +1,28 @@
 import mongoose from "mongoose";
 
+const ProductDataSchema = new mongoose.Schema(
+    {
+        productId: {
+            type: String,
+            required: true,
+            index: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        image: {
+            type: String,
+            required: true
+        }
+    },
+    { _id: false }
+);
+
 const UpdateRawSchema = new mongoose.Schema(
     {
-        ProductId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product",
+        ProductData: {
+            type: ProductDataSchema,
             required: true
         },
         changeType: {
@@ -15,7 +33,7 @@ const UpdateRawSchema = new mongoose.Schema(
         currentQuantity: {
             type: Number,
             required: true,
-            min: 1
+            min: 0
         },
         quantity: {
             type: Number,
@@ -29,3 +47,4 @@ const UpdateRawSchema = new mongoose.Schema(
 const UpdateRawModel = mongoose.models.UpdateRaw || mongoose.model("UpdateRaw", UpdateRawSchema);
 
 export default UpdateRawModel;
+

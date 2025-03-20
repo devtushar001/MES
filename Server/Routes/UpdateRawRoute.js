@@ -4,6 +4,6 @@ import { CreateUpdateRawController, GetUpdateRawController } from '../Controller
 const UpdateRawRoute = express.Router();
 
 UpdateRawRoute.post("/update", CreateUpdateRawController);
-UpdateRawRoute.get("/get-update", GetUpdateRawController);
+UpdateRawRoute.get("/get-update/:date", GetUpdateRawController); 
 
 export default UpdateRawRoute;
