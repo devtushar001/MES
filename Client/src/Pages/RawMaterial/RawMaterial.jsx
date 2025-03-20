@@ -152,6 +152,7 @@ const UpdatedRawMaterial = () => {
     return (
         <>
             <div className="updated-raw-material">
+                <h2>Raw Product List</h2>
                 <div className="updated-controll-form-btn">
                     <button onClick={() => setAddNew(!addNew)}>
                         {!addNew ? "Add New Product" : "Close"}
