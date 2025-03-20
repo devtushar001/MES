@@ -47,21 +47,21 @@ const Home = () => {
 
     useEffect(() => {
         fetchRecentUpdate();
-    }, [inputDate]); // Fetch updates when inputDate changes
+    }, [inputDate]);
 
     return (
         <>
             <div className="recent-update">
                 <div className="filter-method">
-                    <h2>Recent Updates</h2>
+                    <h2>Recent Update (Raw)</h2>
                     <div className="date-selecton">
                         <p>Select Date</p>
-                        <input 
-                            onChange={(e) => setInputDate(e.target.value)} 
-                            value={inputDate} 
-                            type="date" 
-                            name="date" 
-                            id="date" 
+                        <input
+                            onChange={(e) => setInputDate(e.target.value)}
+                            value={inputDate}
+                            type="date"
+                            name="date"
+                            id="date"
                         />
                         <button onClick={fetchRecentUpdate}>Search data</button>
                     </div>
@@ -72,7 +72,7 @@ const Home = () => {
                     <table className="recent-update-table">
                         <thead>
                             <tr>
-                                <th>Product ID</th>
+                                <th>Product Name</th>
                                 <th>Change Type</th>
                                 <th>Quantity</th>
                                 <th>Current Quantity</th>
@@ -82,7 +82,7 @@ const Home = () => {
                         <tbody>
                             {fetchedData.map((update) => (
                                 <tr key={update._id}>
-                                    <td>{update.ProductData.name}</td>
+                                    <td style={{display: "flex", alignItems: "center", gap: "12px"}}> <img style={{maxWidth: "45px"}} src={update.ProductData.image} alt="" /> {update.ProductData.name}</td>
                                     <td>{update.changeType.toLowerCase()}</td>
                                     <td>{update.quantity}</td>
                                     <td>{update.currentQuantity}</td>

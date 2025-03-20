@@ -19,7 +19,7 @@ export const AddRawMaterialController = async (req, res) => {
 
         const newRawProduct = await RawModel.create({
             materialName,
-            imageUrl,
+            imageUrl: imageUrl || "https://surl.li/raobve",
             description,
             quantity,
             color
@@ -41,12 +41,31 @@ export const AddRawMaterialController = async (req, res) => {
 
 export const getRawMaterialController = async (req, res) => {
     try {
-        const rawMaterials = await RawModel.find();
+        const searchQuery = req.query.query || "All";
+
+        console.log("Search Query:", searchQuery);
+
+        let filter = {};
+
+        if (searchQuery !== "All") {
+            filter = {
+                $or: [
+                    { materialName: { $regex: searchQuery, $options: "i" } },
+                    { description: { $regex: searchQuery, $options: "i" } }
+                ]
+            };
+        }
+
+        const rawMaterials = await RawModel.find(filter);
+
         return res.status(200).json({
             success: true,
-            message: "Raw materials fetched successfully!",
+            message: rawMaterials.length > 0
+                ? "Raw materials fetched successfully!"
+                : "No raw materials found.",
             data: rawMaterials
         });
+
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -54,6 +73,7 @@ export const getRawMaterialController = async (req, res) => {
         });
     }
 };
+
 
 export const deleteRawMaterialController = async (req, res) => {
     try {

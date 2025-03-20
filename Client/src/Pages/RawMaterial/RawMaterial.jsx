@@ -18,6 +18,9 @@ const UpdatedRawMaterial = () => {
         quantity: 0,
         color: ""
     });
+    const [searchQuery, setSearchQuery] = useState("All");
+
+
     const [data, setData] = useState({
         ProductId: "",
         changeType: "in",
@@ -27,7 +30,7 @@ const UpdatedRawMaterial = () => {
 
     const fetchProduct = async () => {
         try {
-            const res = await fetch(`${backend_url}/api/raw-material/get`, {
+            const res = await fetch(`${backend_url}/api/raw-material/get?query=${searchQuery}`, {
                 method: 'GET',
                 headers: { 'Content-Type': "application/json" }
             });
@@ -49,8 +52,9 @@ const UpdatedRawMaterial = () => {
     };
 
     useEffect(() => {
+        console.log(searchQuery)
         fetchProduct();
-    }, [backend_url]);
+    }, [backend_url, searchQuery]);
 
     // Create New Raw Material
     const createRawProduct = async () => {
@@ -152,9 +156,8 @@ const UpdatedRawMaterial = () => {
                     <button onClick={() => setAddNew(!addNew)}>
                         {!addNew ? "Add New Product" : "Close"}
                     </button>
-                    <input type="text" placeholder="Search item" />
+                    <input style={{paddingLeft: "12px"}} onChange={(e) => setSearchQuery(e.target.value)} type="text" placeholder="Search item" />
                 </div>
-
                 {addNew && (
                     <div className="updated-add-new-raw-material">
                         <div className="image">
@@ -225,7 +228,7 @@ const UpdatedRawMaterial = () => {
                                     <th>Description</th>
                                     <th>Quantity</th>
                                     <th>Color</th>
-                                    <th>Actions</th>
+                                    <th style={{minWidth: "120px"}}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
