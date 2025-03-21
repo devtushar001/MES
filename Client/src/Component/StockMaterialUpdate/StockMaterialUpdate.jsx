@@ -94,7 +94,7 @@ const StockMaterialUpdate = () => {
                 )}
             </div>
 
-            <div className="home">
+            {/* <div className="home">
                 <div className="home-container">
                     <Link className="no-style" to="raw-material">
                         <div className="raw-material">Raw Material</div>
@@ -103,7 +103,7 @@ const StockMaterialUpdate = () => {
                         <div className="stock-material">Stock Material</div>
                     </Link>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };

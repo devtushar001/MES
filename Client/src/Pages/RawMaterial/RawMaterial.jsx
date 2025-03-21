@@ -4,6 +4,7 @@ import ImageUploader from "../../Component/ImageUploader/ImageUploader";
 import { MesContext } from "../../Context/MesContextProvider";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import RawMaterialUpdate from '../../Component/RawMaterialUpdate/RawMaterialUpdate'
 
 const UpdatedRawMaterial = () => {
     const [addNew, setAddNew] = useState(false);
@@ -151,6 +152,7 @@ const UpdatedRawMaterial = () => {
 
     return (
         <>
+        <RawMaterialUpdate />
             <div className="updated-raw-material">
                 <h2>Raw Product List</h2>
                 <div className="updated-controll-form-btn">

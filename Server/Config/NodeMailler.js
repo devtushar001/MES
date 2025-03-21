@@ -6,14 +6,13 @@ dotenv.config();
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
-    secure: false, // false for TLS, true for SSL (port 465)
+    secure: false, 
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
     }
 });
 
-// Function to send OTP
 export const sendOtpEmail = async (email, otp) => {
     try {
         const mailOptions = {

@@ -3,6 +3,7 @@ import './StockMaterial.css';
 import ImageUploader from "../../Component/ImageUploader/ImageUploader";
 import { MesContext } from "../../Context/MesContextProvider";
 import { toast } from "react-toastify";
+import StockMaterialUpdate from '../../Component/StockMaterialUpdate/StockMaterialUpdate'
 
 const UpdatedRawMaterial = () => {
     const [addNew, setAddNew] = useState(false);
@@ -149,6 +150,7 @@ const UpdatedRawMaterial = () => {
 
     return (
         <>
+        <StockMaterialUpdate/>
             <div className="updated-raw-material">
                 <h2>Stock Product List</h2>
                 <div className="updated-controll-form-btn">
