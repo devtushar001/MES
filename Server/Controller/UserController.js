@@ -88,6 +88,7 @@ export const VerifyOtpController = async (req, res) => {
 export const GetUserDetailsController = async (req, res) => {
     try {
         const userId = req.user;
+        console.log(userId);
         if (!userId) {
             return res.status(400).json({
                 success: false,

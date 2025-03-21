@@ -1,28 +1,23 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useRef, useEffect, useCallback } from "react";
 import "./LoginSignUp.css";
 import { MesContext } from "../../Context/MesContextProvider";
-import {toast} from 'react-toastify';
+import { toast } from "react-toastify";
 
 const LoginSignUp = () => {
+    const { setLoginSignup, backend_url, storedToken } = useContext(MesContext);
     const [otp, setOtp] = useState(false);
     const [otpValues, setOtpValues] = useState(Array(4).fill(""));
-    const { setLoginSignup, backend_url, storedToken } = useContext(MesContext);
     const [data, setData] = useState({ email: "" });
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
+    const [message, setMessage] = useState({ error: null, success: null });
     const otpInputs = useRef([]);
 
     const handleOtpChange = (index, value) => {
-        if (!/^\d?$/.test(value)) return; // Allow only single-digit numbers
+        if (!/^\d?$/.test(value)) return;
         const newOtpValues = [...otpValues];
         newOtpValues[index] = value;
         setOtpValues(newOtpValues);
-
-        // Move to the next input automatically
-        if (value && index < otpValues.length - 1) {
-            otpInputs.current[index + 1]?.focus();
-        }
+        if (value && index < otpValues.length - 1) otpInputs.current[index + 1]?.focus();
     };
 
     const handleBackspace = (index, e) => {
@@ -32,14 +27,9 @@ const LoginSignUp = () => {
     };
 
     const CreateUser = async () => {
-        if (!data.email.trim()) {
-            setError("Please enter a valid email.");
-            return;
-        }
-
+        if (!data.email.trim()) return setMessage({ error: "Please enter a valid email.", success: null });
         setLoading(true);
-        setError(null);
-        setSuccess(null);
+        setMessage({ error: null, success: null });
 
         try {
             const res = await fetch(`${backend_url}/api/user/create`, {
@@ -51,96 +41,73 @@ const LoginSignUp = () => {
             const result = await res.json();
             if (res.ok) {
                 setOtp(true);
-                localStorage.setItem("token", result.token);
-                setSuccess("OTP sent successfully. Check your email.");
+                localStorage.setItem("token", JSON.stringify(result.token));
+                setMessage({ success: "OTP sent successfully. Check your email.", error: null });
             } else {
-                setError(result.message || "Something went wrong. Try again.");
+                setMessage({ error: result.message || "Something went wrong. Try again.", success: null });
             }
         } catch (err) {
-            setError("Network error. Please try again.");
+            setMessage({ error: "Network error. Please try again.", success: null });
         } finally {
             setLoading(false);
         }
     };
 
-    const GetUserDetails = async () => {
+    const GetUserDetails = useCallback(async () => {
         try {
-            const storedToken = localStorage.getItem("token");
-            if (!storedToken) {
-                throw new Error("No token found. Please log in.");
-            }
+            const token = localStorage.getItem("token");
+            if (!token) throw new Error("No token found. Please log in.");
 
             const res = await fetch(`${backend_url}/api/user/get-user`, {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${storedToken}`
-                }
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${JSON.parse(storedToken)}` }
             });
 
             const result = await res.json();
+            if (!res.ok) throw new Error(result.message || "Failed to fetch user details.");
+            if (!result.success) toast.error(result.message);
 
-            if (!res.ok) {
-
-                throw new Error(result.message || "Failed to fetch user details.");
-            }
-
-            if (!result.success) {
-                toast.error(result.message)
-            }
-
-            setLoginSignup(false)
+            setLoginSignup(false);
             return result.data;
-
         } catch (error) {
             console.error("Error fetching user details:", error.message);
             return null;
         }
-    };
+    }, [backend_url, setLoginSignup]);
 
     useEffect(() => {
-        GetUserDetails()
-    }, [])
+        GetUserDetails();
+    }, []);
+
+   
 
     const VerifyUserOTP = async () => {
-        if (!storedToken) {
-            setError("Authorization failed. Try again.");
-            return;
-        }
-
-        const otpCode = otpValues.join(""); // Convert array to a single OTP string
-        if (otpCode.length !== 4) {
-            setError("Please enter the complete 4-digit OTP.");
-            return;
-        }
+        const otpCode = otpValues.join(""); 
+        if (otpCode.length !== 4) return setMessage({ error: "Please enter the complete 4-digit OTP.", success: null });
 
         setLoading(true);
-        setError(null);
-        setSuccess(null);
+        setMessage({ error: null, success: null });
 
         try {
             const res = await fetch(`${backend_url}/api/user/verify`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${storedToken}`,
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                 },
                 body: JSON.stringify({ otp: otpCode }),
             });
 
             const result = await res.json();
             if (res.ok) {
-                setSuccess("OTP verified successfully!");
+                setMessage({ success: "OTP verified successfully!", error: null });
                 GetUserDetails();
-                setTimeout(() => {
-                    setLoginSignup(false); // Close login/signup modal
-                }, 1500);
+                setTimeout(() => setLoginSignup(false), 1500);
             } else {
-                setError(result.message || "Invalid OTP. Try again.");
+                setMessage({ error: result.message || "Invalid OTP. Try again.", success: null });
             }
         } catch (error) {
-            console.log(error.name + ":" + error.message)
-            setError("Something went wrong. Please try again.");
+            setMessage({ error: "Something went wrong. Please try again.", success: null });
         } finally {
             setLoading(false);
         }
@@ -163,8 +130,8 @@ const LoginSignUp = () => {
                         <button onClick={CreateUser} disabled={loading}>
                             {loading ? "Processing..." : "Send OTP"}
                         </button>
-                        {error && <p className="error">{error}</p>}
-                        {success && <p className="success">{success}</p>}
+                        {message.error && <p className="error">{message.error}</p>}
+                        {message.success && <p className="success">{message.success}</p>}
                     </div>
                 ) : (
                     <div className="otp-container">
@@ -185,8 +152,8 @@ const LoginSignUp = () => {
                         <button onClick={VerifyUserOTP} disabled={loading}>
                             {loading ? "Verifying..." : "Verify"}
                         </button>
-                        {error && <p className="error">{error}</p>}
-                        {success && <p className="success">{success}</p>}
+                        {message.error && <p className="error">{message.error}</p>}
+                        {message.success && <p className="success">{message.success}</p>}
                     </div>
                 )}
             </div>

@@ -150,7 +150,6 @@ const UpdatedRawMaterial = () => {
 
     return (
         <>
-        <StockMaterialUpdate/>
             <div className="updated-raw-material">
                 <h2>Stock Product List</h2>
                 <div className="updated-controll-form-btn">
@@ -311,6 +310,7 @@ const UpdatedRawMaterial = () => {
                 <div className="page">1/3</div>
                 <div className="next">Next</div>
             </div>
+            <StockMaterialUpdate />
         </>
     );
 };

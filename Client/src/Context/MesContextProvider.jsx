@@ -1,13 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useMemo } from "react";
 
 export const MesContext = createContext(null);
 
-const MesContextProvider = (props) => {
+const MesContextProvider = ({ children }) => {
     const backend_url = "http://localhost:10019";
     const [rawMaterials, setRawMaterials] = useState([]);
     const [loginSignup, setLoginSignup] = useState(true);
-    const storedToken = localStorage.getItem("token");
-    console.log(storedToken);
+    const storedToken = useMemo(() => localStorage.getItem("token"), []); // Memoize to prevent unnecessary re-reads
 
     const readDate = (date) =>
         new Date(date).toLocaleString("en-IN", {
@@ -21,19 +20,20 @@ const MesContextProvider = (props) => {
             hour12: true,
         });
 
-    const contextValue = {
+    // Memoize context value to prevent unnecessary re-renders
+    const contextValue = useMemo(() => ({
         backend_url,
         rawMaterials,
         setRawMaterials,
         readDate,
         loginSignup,
         setLoginSignup,
-        storedToken
-    };
+        storedToken,
+    }), [rawMaterials, loginSignup]);
 
     return (
         <MesContext.Provider value={contextValue}>
-            {props.children}
+            {children}
         </MesContext.Provider>
     );
 };

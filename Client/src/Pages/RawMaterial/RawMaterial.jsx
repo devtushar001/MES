@@ -152,14 +152,13 @@ const UpdatedRawMaterial = () => {
 
     return (
         <>
-        <RawMaterialUpdate />
             <div className="updated-raw-material">
                 <h2>Raw Product List</h2>
                 <div className="updated-controll-form-btn">
                     <button onClick={() => setAddNew(!addNew)}>
                         {!addNew ? "Add New Product" : "Close"}
                     </button>
-                    <input style={{paddingLeft: "12px"}} onChange={(e) => setSearchQuery(e.target.value)} type="text" placeholder="Search item" />
+                    <input style={{ paddingLeft: "12px" }} onChange={(e) => setSearchQuery(e.target.value)} type="text" placeholder="Search item" />
                 </div>
                 {addNew && (
                     <div className="updated-add-new-raw-material">
@@ -231,7 +230,7 @@ const UpdatedRawMaterial = () => {
                                     <th>Description</th>
                                     <th>Quantity</th>
                                     <th>Color</th>
-                                    <th style={{minWidth: "120px"}}>Actions</th>
+                                    <th style={{ minWidth: "120px" }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -313,6 +312,7 @@ const UpdatedRawMaterial = () => {
                 <div className="page">1/3</div>
                 <div className="next">Next</div>
             </div>
+            <RawMaterialUpdate />
         </>
     );
 };
