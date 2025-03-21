@@ -1,11 +1,12 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import "./LoginSignUp.css";
 import { MesContext } from "../../Context/MesContextProvider";
+import {toast} from 'react-toastify';
 
 const LoginSignUp = () => {
     const [otp, setOtp] = useState(false);
     const [otpValues, setOtpValues] = useState(Array(4).fill(""));
-    const { setLoginSignup, backend_url } = useContext(MesContext);
+    const { setLoginSignup, backend_url, storedToken } = useContext(MesContext);
     const [data, setData] = useState({ email: "" });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -62,8 +63,46 @@ const LoginSignUp = () => {
         }
     };
 
+    const GetUserDetails = async () => {
+        try {
+            const storedToken = localStorage.getItem("token");
+            if (!storedToken) {
+                throw new Error("No token found. Please log in.");
+            }
+
+            const res = await fetch(`${backend_url}/api/user/get-user`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${storedToken}`
+                }
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+
+                throw new Error(result.message || "Failed to fetch user details.");
+            }
+
+            if (!result.success) {
+                toast.error(result.message)
+            }
+
+            setLoginSignup(false)
+            return result.data;
+
+        } catch (error) {
+            console.error("Error fetching user details:", error.message);
+            return null;
+        }
+    };
+
+    useEffect(() => {
+        GetUserDetails()
+    }, [])
+
     const VerifyUserOTP = async () => {
-        const storedToken = localStorage.getItem("token");
         if (!storedToken) {
             setError("Authorization failed. Try again.");
             return;
@@ -92,6 +131,7 @@ const LoginSignUp = () => {
             const result = await res.json();
             if (res.ok) {
                 setSuccess("OTP verified successfully!");
+                GetUserDetails();
                 setTimeout(() => {
                     setLoginSignup(false); // Close login/signup modal
                 }, 1500);
@@ -99,7 +139,7 @@ const LoginSignUp = () => {
                 setError(result.message || "Invalid OTP. Try again.");
             }
         } catch (error) {
-            console.log(error.name+":"+error.message)
+            console.log(error.name + ":" + error.message)
             setError("Something went wrong. Please try again.");
         } finally {
             setLoading(false);

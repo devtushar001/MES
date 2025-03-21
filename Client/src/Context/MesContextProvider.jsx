@@ -6,6 +6,7 @@ const MesContextProvider = (props) => {
     const backend_url = "http://localhost:10019";
     const [rawMaterials, setRawMaterials] = useState([]);
     const [loginSignup, setLoginSignup] = useState(true);
+    const storedToken = localStorage.getItem("token");
 
     const readDate = (date) =>
         new Date(date).toLocaleString("en-IN", {
@@ -25,7 +26,8 @@ const MesContextProvider = (props) => {
         setRawMaterials,
         readDate,
         loginSignup,
-        setLoginSignup
+        setLoginSignup,
+        storedToken
     };
 
     return (
