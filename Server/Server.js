@@ -9,6 +9,7 @@ import RawMaterialRouter from './Routes/RawMaterialRoute.js';
 import UpdateRawRoute from './Routes/UpdateRawRoute.js';
 import StockMaterialRoute from './Routes/StockMaterialRoute.js';
 import UpdateStockRoute from './Routes/UpdateStockRoute.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 const cloudeName = process.env.CLOUDINARY_CLOUD_NAME, cloudApiKey = process.env.CLOUDINARY_API_KEY, cloudApiSecret = process.env.CLOUDINARY_API_SECRET, mongo_url = process.env.MONGODB_URL, port = process.env.PORT;
@@ -17,6 +18,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cookieParser());
+
 
 cloudinarySetup(cloudeName, cloudApiKey, cloudApiSecret);
 connectDb(mongo_url);

@@ -5,6 +5,7 @@ export const MesContext = createContext(null);
 const MesContextProvider = (props) => {
     const backend_url = "http://localhost:10019";
     const [rawMaterials, setRawMaterials] = useState([]);
+    const [loginSignup, setLoginSignup] = useState(true);
 
     const readDate = (date) =>
         new Date(date).toLocaleString("en-IN", {
@@ -22,7 +23,9 @@ const MesContextProvider = (props) => {
         backend_url,
         rawMaterials,
         setRawMaterials,
-        readDate
+        readDate,
+        loginSignup,
+        setLoginSignup
     };
 
     return (

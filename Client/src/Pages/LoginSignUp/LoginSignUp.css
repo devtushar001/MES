@@ -1,41 +1,86 @@
+/* Beautiful and Modern Login/Signup Page */
+
 .login-signup {
     width: 100vw;
-    box-sizing: border-box;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    flex-direction: column;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: 'Poppins', sans-serif;
+    position: fixed;
+    top: 0;
 }
 
 .login-signup .box-container {
-    padding: 20px 30px;
-    border: 1px solid gray;
+    padding: 40px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 380px;
 }
 
-.login-signup .box-container .input-container,
-.login-signup .box-container .otp-container {
+.login-signup .box-container h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #333;
+    font-weight: 600;
+}
+
+.login-signup .input-container,
+.login-signup .otp-container {
     display: flex;
-    width: 340px;
-    height: 35px;
-    gap: 12px;
-}
-
-.login-signup .box-container .input-container input {
     width: 100%;
-    padding-left: 12px;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }
 
-.login-signup .box-container .input-container button {
+.login-signup .input-container input,
+.login-signup .otp-container input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.login-signup .input-container input:focus,
+.login-signup .otp-container input:focus {
+    outline: none;
+    border-color: #2a5298;
+    box-shadow: 0px 0px 8px rgba(42, 82, 152, 0.5);
+}
+
+.login-signup .otp-container input {
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.login-signup .input-container button,
+.login-signup .otp-container button {
+    padding: 12px 18px;
+    border: none;
+    background: #2a5298;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all 0.3s, transform 0.2s;
 }
 
-.login-signup .box-container .otp-container input {
-    width: 30px;
+.login-signup .input-container button:hover,
+.login-signup .otp-container button:hover {
+    background: #1e3c72;
+    transform: scale(1.05);
 }
 
-.login-signup .box-container .otp-container button {
-    width: 120px;
-    cursor: pointer;
+.login-signup .input-container button:active,
+.login-signup .otp-container button:active {
+    transform: scale(0.95);
 }
