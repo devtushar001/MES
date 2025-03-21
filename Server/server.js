@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
         success: false,
         message: 'Universal Something went wrong!',
         error: err.message
-    }); 
+    });
 });
 
 app.listen(port, () => {

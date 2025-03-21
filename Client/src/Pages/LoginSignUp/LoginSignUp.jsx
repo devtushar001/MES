@@ -47,6 +47,7 @@ const LoginSignUp = () => {
                 setMessage({ error: result.message || "Something went wrong. Try again.", success: null });
             }
         } catch (err) {
+            console.log(err.name, err.message)
             setMessage({ error: "Network error. Please try again.", success: null });
         } finally {
             setLoading(false);
