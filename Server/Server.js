@@ -10,6 +10,7 @@ import UpdateRawRoute from './Routes/UpdateRawRoute.js';
 import StockMaterialRoute from './Routes/StockMaterialRoute.js';
 import UpdateStockRoute from './Routes/UpdateStockRoute.js';
 import cookieParser from 'cookie-parser';
+import UserRouter from './Routes/UserRoute.js';
 
 dotenv.config();
 const cloudeName = process.env.CLOUDINARY_CLOUD_NAME, cloudApiKey = process.env.CLOUDINARY_API_KEY, cloudApiSecret = process.env.CLOUDINARY_API_SECRET, mongo_url = process.env.MONGODB_URL, port = process.env.PORT;
@@ -36,6 +37,7 @@ app.use('/api/raw-material', RawMaterialRouter);
 app.use('/api/update-raw', UpdateRawRoute);
 app.use('/api/stock-material', StockMaterialRoute);
 app.use('/api/stock-material-update', UpdateStockRoute);
+app.use('/api/user', UserRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
