@@ -3,7 +3,7 @@ import React, { createContext, useState, useMemo } from "react";
 export const MesContext = createContext(null);
 
 const MesContextProvider = ({ children }) => {
-    const backend_url = "http://localhost:10019";
+    const backend_url = "https://dochaki-mes-backend.onrender.com";
     const [rawMaterials, setRawMaterials] = useState([]);
     const [loginSignup, setLoginSignup] = useState(true);
     const storedToken = useMemo(() => localStorage.getItem("token"), []); // Memoize to prevent unnecessary re-reads
