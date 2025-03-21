@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import UserModel from "../models/UserModel.js";
+import UserModel from "../Models/UserModel.js";
 import { sendOtpEmail } from "../Config/NodeMailler.js";
 import dotenv from 'dotenv';
 dotenv.config();
