@@ -40,7 +40,6 @@ app.use('/api/stock-material-update', UpdateStockRoute);
 app.use('/api/user', UserRouter);
 
 app.use((err, req, res, next) => {
-    console.error(err.stack);
     res.status(500).json({
         success: false,
         message: 'Universal Something went wrong!',
