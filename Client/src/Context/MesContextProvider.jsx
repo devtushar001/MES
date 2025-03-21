@@ -7,6 +7,7 @@ const MesContextProvider = (props) => {
     const [rawMaterials, setRawMaterials] = useState([]);
     const [loginSignup, setLoginSignup] = useState(true);
     const storedToken = localStorage.getItem("token");
+    console.log(storedToken);
 
     const readDate = (date) =>
         new Date(date).toLocaleString("en-IN", {
