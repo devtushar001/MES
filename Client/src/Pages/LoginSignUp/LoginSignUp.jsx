@@ -10,19 +10,17 @@ const LoginSignUp = () => {
         <div className="login-signup">
             <div className="auth-container">
                 <div className="auth-box">
-                    {/* Left Section */}
+
                     <div className="auth-left">
                         <h2>Welcome</h2>
                         <p>Dochaki Designs MES (Manufacturing Execution System) Page.</p>
                     </div>
-                    {/* Right Section */}
                     <div className="auth-right">
                         <h2>{isLogin ? "LOGIN" : "SIGN UP"}</h2>
-                        <input type="text" placeholder="Username or Email" className="auth-input" />
-                        {!isLogin && <input type="email" placeholder="Email" className="auth-input" />}
+                        {!isLogin && <input type="text" placeholder="Full Name" className="auth-input" />}
+                        <input type="emai" placeholder="Email" className="auth-input" />
                         <input type="password" placeholder="Password" className="auth-input" />
-                        {!isLogin && otp && <input className="auth-input" type="text" placeholder="Enter 4 digit otp" />}
-                        {!isLogin ? <button className="auth-button" onClick={() => setOtp(true)}>Sign Up</button> : <button className="auth-button">Login</button>}
+                        {!isLogin ? <button className="auth-button" onClick={() => setOtp(true)}>Send OTP</button> : <button className="auth-button">Login</button>}
                         <div className="auth-toggle">
                             <button onClick={() => setIsLogin(!isLogin)}>
                                 {isLogin ? "Create an account?" : "Already have an account?"}
@@ -30,6 +28,12 @@ const LoginSignUp = () => {
                         </div>
                     </div>
                 </div>
+                {otp ? <div className="otp">
+                    <div className="otp-box">
+                        <input placeholder="Enter 4 digit otp sent to your email" type="text" />
+                        <button>Sign UP</button>
+                    </div>
+                </div> : <></>}
             </div>
         </div>
     );

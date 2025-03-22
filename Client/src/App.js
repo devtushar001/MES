@@ -18,9 +18,9 @@ function App() {
   const { loginSignup, setLoginSignup } = useContext(MesContext);
   return (
     <div className="App">
+      {loginSignup && <LoginSignUp />}
       <Navbar />
       <Sidebar />
-      {loginSignup && <LoginSignUp />}
       <div className='app-route'>
         <Routes>
           <Route path='/' element={<Home />} />

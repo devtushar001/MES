@@ -5,7 +5,7 @@ export const MesContext = createContext(null);
 const MesContextProvider = ({ children }) => {
     const backend_url = "https://dochaki-mes-backend.onrender.com";
     const [rawMaterials, setRawMaterials] = useState([]);
-    const [loginSignup, setLoginSignup] = useState(false);
+    const [loginSignup, setLoginSignup] = useState(true);
     const storedToken = useMemo(() => localStorage.getItem("token"), []);
     const [userData, setUserData] = useState({
     

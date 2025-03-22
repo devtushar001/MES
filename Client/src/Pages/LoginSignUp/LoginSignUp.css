@@ -5,6 +5,7 @@
     bottom: 0;
     right: 0;
     left: 0;
+    z-index: 9000;
 }
 
 
@@ -14,15 +15,49 @@
     justify-content: center;
     min-height: 100vh;
     background-color: #e0f7f7;
+    position: relative;
+}
 
+.login-signup .auth-container .otp {
+    background: #c8cecd;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-signup .auth-container .otp .otp-box {
+    width: 540px;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 12px;
+    height: 35px;
+}
+
+.login-signup .auth-container .otp .otp-box input {
+    outline: none;
+    border: 1px solid #0fa79f;
+    border-radius: 20px;
+    padding-left: 12px;
+}
+
+.login-signup .auth-container .otp .otp-box input:focus{
+    border-color: #38b2ac;
+}
+.login-signup .auth-container .otp .otp-box button {
+    cursor: pointer; 
+    border-radius: 20px;
+    border: 1px solid #0fa79f;
+    color: #0fa79f;
 }
 
 .login-signup .auth-container .auth-box {
     display: flex;
-    width: 40rem;
+    width: 55rem;
     background: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
     overflow: hidden;
 }
 
@@ -58,7 +93,6 @@
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
     margin-bottom: 10px;
     outline: none;
     transition: border 0.3s;
@@ -74,7 +108,6 @@
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s;
 }
