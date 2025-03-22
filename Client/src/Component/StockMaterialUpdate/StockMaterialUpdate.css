@@ -1,0 +1,126 @@
+/* Container Styling */
+.recent-update {
+    background: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Header Title */
+.recent-update h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* Filter Section */
+.filter-method {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Date Selection */
+.date-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date-selection p {
+    color: #333;
+    margin: 0;
+}
+
+.date-selection input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.date-selection input:focus {
+    border-color: #007bff;
+}
+
+/* Search Button */
+.date-selection button {
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* Table Styling */
+.recent-update-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+.recent-update-table thead {
+    background-color: #2c3e50;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.recent-update-table th,
+.recent-update-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Alternate Row Styling */
+.recent-update-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Hover Effect */
+.recent-update-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Image Styling in Table */
+.recent-update-table img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-method {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .date-selection {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .date-selection input,
+    .date-selection button {
+        width: 100%;
+    }
+
+    .recent-update-table th,
+    .recent-update-table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}

@@ -40,7 +40,7 @@ const StockMaterialUpdate = () => {
         <>
             <div className="recent-update">
                 <div className="filter-method">
-                    <h2>Recent Update (Stock)</h2>
+                    <h2>Today STOCK Update!!!</h2>
                     <div className="date-selection">
                         <p>Select Date</p>
                         <input

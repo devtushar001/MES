@@ -25,3 +25,9 @@
     padding: 10px 20px;
     border-radius: 30px 0 0 30px;
 }
+
+.not-style {
+    text-decoration: none;
+    list-style: none;
+    color: #e7e7e7;
+}

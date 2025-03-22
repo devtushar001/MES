@@ -1,26 +1,24 @@
 .recent-update {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
     background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    width: 120%;
 }
 
+.recent-update h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Filter Section */
 .filter-method {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
     flex-wrap: wrap;
-}
-
-.filter-method h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin: 0;
+    margin-bottom: 20px;
 }
 
 .date-selecton {
@@ -30,84 +28,59 @@
 }
 
 .date-selecton p {
-    margin: 0;
-    font-size: 1rem;
     font-weight: 500;
+    color: #444;
 }
 
 .date-selecton input {
-    padding: 6px 10px;
-    font-size: 1rem;
+    padding: 8px 12px;
     border: 1px solid #ccc;
+    font-size: 14px;
 }
 
 .date-selecton button {
-    background: #9b5d00;
-    color: white;
-    padding: 6px 12px;
-    font-size: 1rem;
-    border: none;
+    padding: 8px 14px;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s;
 }
-
-
 
 .recent-update-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.recent-update-table th, 
+.recent-update-table th,
 .recent-update-table td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
 }
 
-.recent-update-table th {
-    background: #124a86;
-    color: white;
+.recent-update-table thead {
+    background-color: #343a40;
+    color: #ffffff;
 }
 
-.recent-update-table tbody tr:nth-child(even) {
-    background: #f9f9f9;
+.recent-update-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
 }
 
-
-
-.home {
-    text-align: center;
-    margin: 40px 0;
+.recent-update-table tbody tr:hover {
+    background-color: #f1f1f1;
 }
 
-.home-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+/* Image in Table */
+.recent-update-table img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 1px solid #ddd;
 }
 
-.no-style {
-    text-decoration: none;
-    color: inherit;
-}
-
-.raw-material, .stock-material {
-    background: #28a745;
-    color: white;
-    padding: 15px 25px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    transition: all 0.3s ease-in-out;
-}
-
-.stock-material {
-    background: #ff9800;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
     .filter-method {
         flex-direction: column;
@@ -115,17 +88,18 @@
     }
 
     .date-selecton {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .home-container {
         flex-direction: column;
-        align-items: center;
+        width: 100%;
     }
 
-    .raw-material, .stock-material {
-        width: 80%;
-        text-align: center;
+    .date-selecton input,
+    .date-selecton button {
+        width: 100%;
+    }
+
+    .recent-update-table th,
+    .recent-update-table td {
+        font-size: 12px;
+        padding: 8px;
     }
 }

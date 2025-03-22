@@ -44,7 +44,6 @@ const UpdatedRawMaterial = () => {
 
             setRawMaterials(data.data);
             console.log(data.data)
-            toast.success("Raw materials loaded successfully");
         } catch (error) {
             toast.error(`${error.name}: ${error.message}`);
         }
@@ -73,7 +72,6 @@ const UpdatedRawMaterial = () => {
                 return;
             }
 
-            toast.success("Raw material added successfully");
             setRawMaterials((prev) => [...prev, data.data]);
 
             // Reset form
@@ -98,7 +96,6 @@ const UpdatedRawMaterial = () => {
                 return;
             }
 
-            toast.success("Raw material deleted successfully");
             fetchProduct();
         } catch (error) {
             toast.error(`${error.name}: ${error.message}`);
@@ -136,8 +133,6 @@ const UpdatedRawMaterial = () => {
                 toast.error(result.message);
                 return;
             }
-
-            toast.success("Raw material updated successfully!");
             fetchProduct();
             setData((prev) => ({ ...prev, changeType: "in" }))
             setInOut(false);

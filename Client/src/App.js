@@ -10,6 +10,9 @@ import InRawProduct from './Component/InRawProduct/InRawProduct';
 import { useContext } from 'react';
 import { MesContext } from './Context/MesContextProvider';
 import Sidebar from './Component/Sidebar/Sidebar';
+import UpdatedRawMaterial from './Pages/StockMaterial/StockMaterial';
+import StockMaterialUpdate from './Component/StockMaterialUpdate/StockMaterialUpdate';
+import RawMaterialUpdate from './Component/RawMaterialUpdate/RawMaterialUpdate';
 
 function App() {
   const { loginSignup, setLoginSignup } = useContext(MesContext);
@@ -22,8 +25,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/raw-material' element={<RawMaterial />} />
-          <Route path='/raw-material/raw-in-edit' element={<InRawProduct />} />
           <Route path='/stock-material' element={<StockMaterial />} />
+          <Route path='/stock-material-update' element={<StockMaterialUpdate />} />
+          <Route path='/raw-material-update' element={<RawMaterialUpdate />} />
         </Routes>
         <ToastContainer />
       </div>
