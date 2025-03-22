@@ -3,8 +3,6 @@ import './RawMaterial.css';
 import ImageUploader from "../../Component/ImageUploader/ImageUploader";
 import { MesContext } from "../../Context/MesContextProvider";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import RawMaterialUpdate from '../../Component/RawMaterialUpdate/RawMaterialUpdate'
 
 const UpdatedRawMaterial = () => {
     const [addNew, setAddNew] = useState(false);
@@ -21,13 +19,11 @@ const UpdatedRawMaterial = () => {
     });
     const [searchQuery, setSearchQuery] = useState("All");
 
-
     const [data, setData] = useState({
         ProductId: "",
         changeType: "in",
         quantity: 0
     })
-    // Fetch Raw Materials
 
     const fetchProduct = async () => {
         try {
@@ -153,7 +149,6 @@ const UpdatedRawMaterial = () => {
     return (
         <>
             <div className="updated-raw-material">
-                <h2>Raw Product List</h2>
                 <div className="updated-controll-form-btn">
                     <button onClick={() => setAddNew(!addNew)}>
                         {!addNew ? "Add New Product" : "Close"}
@@ -302,17 +297,6 @@ const UpdatedRawMaterial = () => {
                     <button onClick={updateRawMaterial}>Submit</button>
                 </div >
             </div > : <></>}
-            {/* <div className="in-out">
-                <div onClick={() => setInOut(true)} className="raw-in">IN</div>
-                <div className="raw-out">OUT</div>
-            </div> */}
-
-            <div className="controller">
-                <div className="previous">Prev.</div>
-                <div className="page">1/3</div>
-                <div className="next">Next</div>
-            </div>
-            <RawMaterialUpdate />
         </>
     );
 };

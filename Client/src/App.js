@@ -9,20 +9,24 @@ import { ToastContainer } from 'react-toastify';
 import InRawProduct from './Component/InRawProduct/InRawProduct';
 import { useContext } from 'react';
 import { MesContext } from './Context/MesContextProvider';
+import Sidebar from './Component/Sidebar/Sidebar';
 
 function App() {
   const { loginSignup, setLoginSignup } = useContext(MesContext);
   return (
     <div className="App">
       <Navbar />
+      <Sidebar />
       {loginSignup && <LoginSignUp />}
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/raw-material' element={<RawMaterial />} />
-        <Route path='/raw-material/raw-in-edit' element={<InRawProduct />} />
-        <Route path='/stock-material' element={<StockMaterial />} />
-      </Routes>
-      <ToastContainer />
+      <div className='app-route'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/raw-material' element={<RawMaterial />} />
+          <Route path='/raw-material/raw-in-edit' element={<InRawProduct />} />
+          <Route path='/stock-material' element={<StockMaterial />} />
+        </Routes>
+        <ToastContainer />
+      </div>
     </div>
   );
 }

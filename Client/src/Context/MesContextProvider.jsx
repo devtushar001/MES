@@ -5,8 +5,13 @@ export const MesContext = createContext(null);
 const MesContextProvider = ({ children }) => {
     const backend_url = "https://dochaki-mes-backend.onrender.com";
     const [rawMaterials, setRawMaterials] = useState([]);
-    const [loginSignup, setLoginSignup] = useState(true);
-    const storedToken = useMemo(() => localStorage.getItem("token"), []); // Memoize to prevent unnecessary re-reads
+    const [loginSignup, setLoginSignup] = useState(false);
+    const storedToken = useMemo(() => localStorage.getItem("token"), []);
+    const [userData, setUserData] = useState({
+    
+    });
+
+    const token = JSON.parse(localStorage.getItem("token"));
 
     const readDate = (date) =>
         new Date(date).toLocaleString("en-IN", {
@@ -20,7 +25,6 @@ const MesContextProvider = ({ children }) => {
             hour12: true,
         });
 
-    // Memoize context value to prevent unnecessary re-renders
     const contextValue = useMemo(() => ({
         backend_url,
         rawMaterials,
@@ -29,6 +33,8 @@ const MesContextProvider = ({ children }) => {
         loginSignup,
         setLoginSignup,
         storedToken,
+        userData,
+        setUserData
     }), [rawMaterials, loginSignup]);
 
     return (

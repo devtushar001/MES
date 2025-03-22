@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
-
+import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { assets } from "../../Assets/Assets";
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <nav className="navbar">
-      <div className="logo">Dochaki MES</div>
-      <ul className="nav-links">
-        <Link to="/"> <li>Home</li></Link>
-        <Link to="/raw-material"><li>Raw Material</li></Link>
-        <Link to="/stock-material"><li>Stock Material</li></Link>
-      </ul>
-    </nav>
+    <>
+      <nav className="navbar">
+        <div className="nav-logo">
+          <img style={{maxHeight: "67px"}} src={assets.dochaki_logo} alt="" />
+        </div>
+        <div className={`nav-menu ${menuOpen ? "open" : ""}`}>
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Services</li>
+            <li>Feedback</li>
+          </ul>
+        </div>
+        <div className="nav-icons">
+          <FaSearch className="search-icon" />
+          {menuOpen ? (
+            <FaTimes className="menu-icon" onClick={() => setMenuOpen(false)} />
+          ) : (
+            <FaBars className="menu-icon" onClick={() => setMenuOpen(true)} />
+          )}
+        </div>
+      </nav>
+    </>
   );
 };
 
