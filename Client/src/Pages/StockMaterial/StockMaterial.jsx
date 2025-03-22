@@ -151,7 +151,6 @@ const UpdatedRawMaterial = () => {
     return (
         <>
             <div className="updated-raw-material">
-                <h2>Stock Product List</h2>
                 <div className="updated-controll-form-btn">
                     <button onClick={() => setAddNew(!addNew)}>
                         {!addNew ? "Add New Product" : "Close"}
@@ -273,7 +272,7 @@ const UpdatedRawMaterial = () => {
             </div >
             {inOUt ? <div className="edit-in-out">
                 < div className="container" >
-                    <h2>Update Raw Material</h2>
+                    <h2>Update Stock!!!</h2>
                     <div className="close" onClick={() => setInOut(false)}>X</div>
                     {
                         rawMaterials.map((item, i) => {
@@ -288,29 +287,20 @@ const UpdatedRawMaterial = () => {
                             }
                         })
                     }
-                    <select
-                        onChange={(e) => setData(prev => ({ ...prev, changeType: e.target.value }))}
-                        name="update-type"
-                        id="update-type"
-                    >
-                        <option value="in">in</option>
-                        <option value="out">out</option>
-                    </select>
-                    <input onChange={(e) => setData((prev) => ({ ...prev, quantity: Number(e.target.value) }))} type="number" name="quantity" id="quantity" placeholder="Quantity" />
-                    <button onClick={updateRawMaterial}>Submit</button>
+                    <div className="input-system">
+                        <select
+                            onChange={(e) => setData(prev => ({ ...prev, changeType: e.target.value }))}
+                            name="update-type"
+                            id="update-type"
+                        >
+                            <option value="in">in</option>
+                            <option value="out">out</option>
+                        </select>
+                        <input onChange={(e) => setData((prev) => ({ ...prev, quantity: Number(e.target.value) }))} type="number" name="quantity" id="quantity" placeholder="Quantity" />
+                        <button onClick={updateRawMaterial}>Submit</button>
+                    </div>
                 </div >
             </div > : <></>}
-            {/* <div className="in-out">
-                <div onClick={() => setInOut(true)} className="raw-in">IN</div>
-                <div className="raw-out">OUT</div>
-            </div> */}
-
-            <div className="controller">
-                <div className="previous">Prev.</div>
-                <div className="page">1/3</div>
-                <div className="next">Next</div>
-            </div>
-            <StockMaterialUpdate />
         </>
     );
 };

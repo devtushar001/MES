@@ -270,7 +270,7 @@ const UpdatedRawMaterial = () => {
             </div >
             {inOUt ? <div className="edit-in-out">
                 < div className="container" >
-                    <h2>Update Raw Material</h2>
+                    <h2>Updating Raw!!!</h2>
                     <div className="close" onClick={() => setInOut(false)}>X</div>
                     {
                         rawMaterials.map((item, i) => {
@@ -285,16 +285,18 @@ const UpdatedRawMaterial = () => {
                             }
                         })
                     }
-                    <select
-                        onChange={(e) => setData(prev => ({ ...prev, changeType: e.target.value }))}
-                        name="update-type"
-                        id="update-type"
-                    >
-                        <option value="in">in</option>
-                        <option value="out">out</option>
-                    </select>
-                    <input onChange={(e) => setData((prev) => ({ ...prev, quantity: Number(e.target.value) }))} type="number" name="quantity" id="quantity" placeholder="Quantity" />
-                    <button onClick={updateRawMaterial}>Submit</button>
+                    <div className="input-system">
+                        <select
+                            onChange={(e) => setData(prev => ({ ...prev, changeType: e.target.value }))}
+                            name="update-type"
+                            id="update-type"
+                        >
+                            <option value="in">in</option>
+                            <option value="out">out</option>
+                        </select>
+                        <input onChange={(e) => setData((prev) => ({ ...prev, quantity: Number(e.target.value) }))} type="number" name="quantity" id="quantity" placeholder="Quantity" />
+                        <button onClick={updateRawMaterial}>Submit</button>
+                    </div>
                 </div >
             </div > : <></>}
         </>
