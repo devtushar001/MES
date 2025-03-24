@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 import UserModel from "../Models/UserModel.js";
 import { sendOtpEmail } from "../Config/NodeMailler.js";
 import dotenv from 'dotenv';
@@ -60,7 +61,7 @@ export const UserOTPVerifyController = async (req, res) => {
         const userId = req.user;
         console.log(userId, otp)
         const getUser = await UserModel.findById(userId);
-
+        console.log(getUser)
         if (!getUser) {
             return res.status(404).json({
                 success: false,
@@ -93,20 +94,20 @@ export const UserLoginController = async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json({ message: "Email and password are required." });
+            return res.status(400).json({ success: false, message: "Email and password are required." });
         }
 
         const user = await UserModel.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: "User not found. Please register first." });
+            return res.status(404).json({ success: false, message: "User not found. Please register first." });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(401).json({ message: "Invalid credentials." });
+            return res.status(401).json({ success: false, message: "Invalid credentials." });
         }
 
-        if (!user.isVerified) {
+        if (!user.isVerified || !user.access) {
             return res.status(403).json({ message: "Account not verified. Please verify your email first." });
         }
 
@@ -252,6 +253,44 @@ export const GetUserDetailsController = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: `Error: ${error.message}`,
+        });
+    }
+};
+
+export const GetAllUserController = async (req, res) => {
+    try {
+        const userId = req.user;
+        console.log("User ID:", userId);
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized: User ID is missing",
+            });
+        }
+
+        const adminUser = await UserModel.findById(userId);
+        console.log("Admin User:", adminUser);
+
+        if (!adminUser || !adminUser.access || !adminUser.isVerified) {
+            return res.status(403).json({
+                success: false,
+                message: "User not authorized to access this route",
+            });
+        }
+
+        const users = await UserModel.find();
+        res.status(200).json({
+            success: true,
+            message: "Users fetched successfully",
+            data: users,
+        });
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch users",
+            error: error.message,
         });
     }
 };

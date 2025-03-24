@@ -1,17 +1,23 @@
-import React, { createContext, useState, useMemo } from "react";
+import React, { createContext, useState, useEffect, useMemo } from "react";
 
 export const MesContext = createContext(null);
 
 const MesContextProvider = ({ children }) => {
-    const backend_url = "https://dochaki-mes-backend.onrender.com";
+    // const backend_url = "https://dochaki-mes-backend.onrender.com";
+    const backend_url = "http://localhost:10019";
     const [rawMaterials, setRawMaterials] = useState([]);
     const [loginSignup, setLoginSignup] = useState(true);
-    const storedToken = useMemo(() => localStorage.getItem("token"), []);
-    const [userData, setUserData] = useState({
-    
-    });
+    const [userData, setUserData] = useState({});
+    const [token, setToken] = useState(() => JSON.parse(localStorage.getItem("authToken")));
 
-    const token = JSON.parse(localStorage.getItem("token"));
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setToken(JSON.parse(localStorage.getItem("authToken")));
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
+    }, []);
 
     const readDate = (date) =>
         new Date(date).toLocaleString("en-IN", {
@@ -32,10 +38,11 @@ const MesContextProvider = ({ children }) => {
         readDate,
         loginSignup,
         setLoginSignup,
-        storedToken,
         userData,
-        setUserData
-    }), [rawMaterials, loginSignup]);
+        setUserData,
+        token,
+        setToken,  // Allow token updates dynamically
+    }), [backend_url, rawMaterials, loginSignup, userData, token]);
 
     return (
         <MesContext.Provider value={contextValue}>

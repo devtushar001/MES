@@ -2,23 +2,58 @@ import React, { useContext, useState, useEffect } from "react";
 import "./LoginSignUp.css";
 import { MesContext } from "../../Context/MesContextProvider";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 const LoginSignUp = () => {
     const [isLogin, setIsLogin] = useState(true);
-    const { backend_url } = useContext(MesContext);
+    const { backend_url, token, setToken, setLoginSignup } = useContext(MesContext);
     const [otp, setOtp] = useState(false);
     const [userData, setUserData] = useState({
         name: "",
         email: "",
-        password: ""
+        password: "",
     });
     const [otpCode, setOtpCode] = useState("");
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        console.log(userData);
+        console.log("User Data:", userData);
     }, [userData]);
 
-    // User Registration
+    const getUserData = async () => {
+        if (!token) {
+            toast.error("Authorization token is missing!");
+            return;
+        }
+
+        try {
+            const res = await fetch(`${backend_url}/api/user/get-user`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                toast.error(data.message || "Failed to fetch user data");
+                return;
+            }
+
+            toast.success("User data fetched successfully!");
+            setLoginSignup(false)
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            toast.error("Failed to fetch user data. Please try again.");
+        }
+    };
+
+    useEffect(() => {
+        getUserData();
+    }, [backend_url])
+
     const userRegistration = async () => {
         if (!userData.name || !userData.email || !userData.password) {
             toast.error("All fields are required!");
@@ -29,26 +64,27 @@ const LoginSignUp = () => {
             const res = await fetch(`${backend_url}/api/user/register`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(userData)
+                body: JSON.stringify(userData),
             });
 
             const data = await res.json();
             if (!res.ok) {
-                throw new Error(data.message || "Registration failed");
+                toast.error(data.message || "Registration failed");
+                return;
             }
 
             toast.success(data.message);
             setOtp(true);
-            localStorage.setItem("authToken", data.token);
+            setToken(data.token); // Update context state
+            localStorage.setItem("authToken", JSON.stringify(data.token));
         } catch (error) {
             console.error("Error during registration:", error);
-            toast.error(`Registration failed: ${error.message}`);
+            toast.error("Registration failed. Please try again.");
         }
     };
 
-    // User Login
     const userLogin = async () => {
         if (!userData.email || !userData.password) {
             toast.error("Email and password are required!");
@@ -59,31 +95,38 @@ const LoginSignUp = () => {
             const res = await fetch(`${backend_url}/api/user/login`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email: userData.email,
-                    password: userData.password
-                })
+                    password: userData.password,
+                }),
             });
 
             const data = await res.json();
             if (!res.ok) {
-                throw new Error(data.message || "Login failed");
+                toast.error(data.message || "Login failed");
+                return;
             }
 
             toast.success("Login successful!");
-            localStorage.setItem("authToken", data.token);
+            setToken(data.token);
+            setLoginSignup(false)
+            navigate('/')
+            localStorage.setItem("authToken", JSON.stringify(data.token));
         } catch (error) {
             console.error("Error during login:", error);
-            toast.error(`Login failed: ${error.message}`);
+            toast.error("Login failed. Please try again.");
         }
     };
 
-    // Verify OTP
     const verifyOtp = async () => {
         if (!otpCode) {
             toast.error("Please enter the OTP!");
+            return;
+        }
+        if (!token) {
+            toast.error("Authorization token is missing!");
             return;
         }
 
@@ -91,21 +134,24 @@ const LoginSignUp = () => {
             const res = await fetch(`${backend_url}/api/user/verify-otp`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ email: userData.email, otp: otpCode })
+                body: JSON.stringify({ email: userData.email, otp: otpCode }),
             });
 
             const data = await res.json();
             if (!res.ok) {
-                throw new Error(data.message || "OTP verification failed");
+                toast.error(data.message || "OTP verification failed");
+                return;
             }
 
             toast.success("OTP Verified Successfully!");
             setOtp(false);
+            isLogin(true);
         } catch (error) {
             console.error("Error during OTP verification:", error);
-            toast.error(`OTP verification failed: ${error.message}`);
+            toast.error("OTP verification failed. Please try again.");
         }
     };
 
@@ -120,12 +166,12 @@ const LoginSignUp = () => {
 
                     <div className="auth-right">
                         <h2>{isLogin ? "LOGIN" : "SIGN UP"}</h2>
-
                         {!isLogin && (
                             <input
                                 type="text"
                                 placeholder="Full Name"
                                 className="auth-input"
+                                value={userData.name}
                                 onChange={(e) => setUserData((prev) => ({ ...prev, name: e.target.value }))}
                             />
                         )}
@@ -133,12 +179,14 @@ const LoginSignUp = () => {
                             type="email"
                             placeholder="Email"
                             className="auth-input"
+                            value={userData.email}
                             onChange={(e) => setUserData((prev) => ({ ...prev, email: e.target.value }))}
                         />
                         <input
                             type="password"
                             placeholder="Password"
                             className="auth-input"
+                            value={userData.password}
                             onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
                         />
 
