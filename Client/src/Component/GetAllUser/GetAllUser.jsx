@@ -50,9 +50,10 @@ const GetAllUser = () => {
                     return (
                         <div key={i}>
                             <span>{item.email}</span>
-                            {item.isVerified ? "Verified" : "Not Verified"}
-                            <button>Delete User</button>
-                            {item.access ? <button>Remove Access</button> : <button>Give Access</button>}
+                            <span>{item.isVerified ? "Verified" : "Not Verified"}</span>
+                            <span>{item.access ? "Access" : <button>Pending access</button> }</span>
+                            <button className="remove-access">Remove</button>
+                            <button className="delete-user">Delete user</button>
                         </div>
                     )
                 })}

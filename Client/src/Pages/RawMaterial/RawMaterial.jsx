@@ -42,7 +42,6 @@ const UpdatedRawMaterial = () => {
 
             setRawMaterials(data.data);
             console.log(data.data)
-            toast.success("Raw materials loaded successfully");
         } catch (error) {
             toast.error(`${error.name}: ${error.message}`);
         }
