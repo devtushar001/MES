@@ -1,5 +1,5 @@
 import express from 'express';
-import { GetAllUserController, GetUserDetailsController, SendUserOtpController, UserAccessController, UserLoginController, UserOTPVerifyController, UserRegistrationController, VerifyOtpController } from '../Controller/UserController.js';
+import { GetAllUserController, GetUserDetailsController, SendUserOtpController, UserAccessController, UserDeleteController, UserLoginController, UserOTPVerifyController, UserRegistrationController, VerifyOtpController } from '../Controller/UserController.js';
 import isAuth from '../Middlewares/isAuth.js';
 
 const UserRouter = express.Router();
@@ -12,5 +12,6 @@ UserRouter.post('/verify', isAuth, VerifyOtpController);
 UserRouter.get('/get-user', isAuth, GetUserDetailsController);
 UserRouter.get('/all-users', isAuth, GetAllUserController);
 UserRouter.post('/access', isAuth, UserAccessController);
+UserRouter.post('/delete', isAuth, UserDeleteController);
 
 export default UserRouter;

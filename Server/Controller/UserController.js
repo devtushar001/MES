@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import UserModel from "../Models/UserModel.js";
 import { sendOtpEmail } from "../Config/NodeMailler.js";
 import dotenv from 'dotenv';
+import { connect } from "mongoose";
 dotenv.config();
 
 export const UserRegistrationController = async (req, res) => {
@@ -298,8 +299,9 @@ export const GetAllUserController = async (req, res) => {
 export const UserAccessController = async (req, res) => {
     try {
         const userId = req.user;
-        const { personId } = req.body; 
-
+        const { personId } = req.body;
+        console.log(userId)
+        console.log(personId)
         if (!userId) {
             return res.status(400).json({
                 success: false,
@@ -307,10 +309,10 @@ export const UserAccessController = async (req, res) => {
             });
         }
 
-        const user = await UserModel.findById(userId); 
+        const user = await UserModel.findById(userId);
 
         if (!user || !user.isVerified || !user.access) {
-            return res.status(403).json({ 
+            return res.status(403).json({
                 success: false,
                 message: "You are not authorized to edit these things."
             });
@@ -323,19 +325,82 @@ export const UserAccessController = async (req, res) => {
         );
 
         if (!verificationPerson) {
-            return res.status(404).json({ 
+            return res.status(404).json({
                 success: false,
                 message: "This person is not available in the database."
             });
         }
 
-        return res.status(200).json({ 
+        return res.status(200).json({
             success: true,
             message: "User access updated successfully.",
             user: verificationPerson
         });
 
     } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: `API error: ${error.name} - ${error.message}`
+        });
+    }
+};
+
+export const UserDeleteController = async (req, res) => {
+    try {
+        const userId = req.user?.id || req.user; // Ensure userId is extracted correctly
+        const { personId } = req.body;
+
+        console.log("Authenticated User ID:", userId);
+        console.log("Person to Delete ID:", personId);
+
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "You should be authenticated."
+            });
+        }
+
+        if (!personId) {
+            return res.status(400).json({
+                success: false,
+                message: "Person ID is required to delete a user."
+            });
+        }
+
+        const user = await UserModel.findById(userId);
+
+        if (!user || !user.isVerified || !user.access) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to perform this action."
+            });
+        }
+
+        if (userId === personId) {
+            return res.status(403).json({
+                success: false,
+                message: "You cannot delete your own account."
+            });
+        }
+
+        const deletedPerson = await UserModel.findByIdAndDelete(personId);
+
+        if (!deletedPerson) {
+            return res.status(404).json({
+                success: false,
+                message: "This person is not available in the database."
+            });
+        }
+        
+        return res.status(200).json({
+            success: true,
+            message: "Person deleted successfully.",
+            data: deletedPerson
+        });
+
+    } catch (error) {
+        console.error("Error in UserDeleteController:", error); 
+
         return res.status(500).json({
             success: false,
             message: `API error: ${error.name} - ${error.message}`
