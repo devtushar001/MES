@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       {loginSignup && <LoginSignUp />}
       <Navbar />
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className='app-route'>
         <Routes>
           <Route path='/' element={<Home />} />

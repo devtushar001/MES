@@ -71,8 +71,8 @@ const RawMaterialUpdate = () => {
                         <tbody>
                             {fetchedData.map((update) => (
                                 <tr key={update._id}>
-                                    <td style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                                        <img style={{ maxWidth: "45px" }} src={update.ProductData.image} alt="" />
+                                    <td >
+                                        <img src={update.ProductData.image} alt="" />
                                         {update.ProductData.name}
                                     </td>
                                     <td>{update.changeType.toLowerCase()}</td>

@@ -1,87 +1,124 @@
+/* Container Styling */
 .recent-update {
-    background: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    width: 120%;
+    background: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
 }
 
 .recent-update h2 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: 700;
     color: #333;
+    margin-bottom: 15px;
 }
 
-/* Filter Section */
+/* 🔹 Filter Section */
 .filter-method {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
 }
 
 .date-selecton {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 8px;
 }
 
 .date-selecton p {
-    font-weight: 500;
-    color: #444;
+    font-weight: 600;
+    color: #555;
 }
 
 .date-selecton input {
     padding: 8px 12px;
-    border: 1px solid #ccc;
+    border: 2px solid #ddd;
+    border-radius: 6px;
     font-size: 14px;
-}
-
-.date-selecton button {
-    padding: 8px 14px;
-    cursor: pointer;
     transition: all 0.3s;
 }
 
+.date-selecton input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* 🔹 Button Styling */
+.date-selecton button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.date-selecton button:hover {
+    background: #0056b3;
+}
+
+/* 🔹 Table Styling */
 .recent-update-table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    overflow: hidden;
+    background: white;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
+/* Table Head */
+.recent-update-table thead {
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+/* Table Data */
 .recent-update-table th,
 .recent-update-table td {
-    padding: 12px;
+    padding: 12px 15px;
     text-align: left;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
-.recent-update-table thead {
-    background-color: #343a40;
-    color: #ffffff;
-}
-
+/* Alternate Row Colors */
 .recent-update-table tbody tr:nth-child(odd) {
     background-color: #f9f9f9;
 }
 
+/* Hover Effect */
 .recent-update-table tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: #e6f7ff;
 }
 
-/* Image in Table */
+/* Image Styling */
 .recent-update-table img {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     object-fit: cover;
+    border-radius: 5px;
     border: 1px solid #ddd;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* 🔹 Responsive Design */
+@media (max-width: 900px) {
     .filter-method {
         flex-direction: column;
         align-items: flex-start;
@@ -89,12 +126,28 @@
 
     .date-selecton {
         flex-direction: column;
+        align-items: flex-start;
         width: 100%;
     }
 
     .date-selecton input,
     .date-selecton button {
         width: 100%;
+    }
+
+    .recent-update-table th,
+    .recent-update-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* 🔹 Scrollable Table for Small Screens */
+@media (max-width: 600px) {
+    .recent-update-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
 
     .recent-update-table th,

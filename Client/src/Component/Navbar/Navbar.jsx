@@ -8,24 +8,19 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="nav-logo">
-          <img style={{maxHeight: "67px"}} src={assets.dochaki_logo} alt="" />
+          <img src={assets.dochaki_logo} alt="" />
         </div>
         <div className={`nav-menu ${menuOpen ? "open" : ""}`}>
           <ul>
             <li>Home</li>
-            <li>About</li>
-            <li>Services</li>
-            <li>Feedback</li>
+            <li>Dashboard</li>
+            <li>Stock item</li>
+            <li>Raw item</li>
+            <li>Stock update</li>
+            <li>Raw update</li>
           </ul>
         </div>
-        <div className="nav-icons">
-          <FaSearch className="search-icon" />
-          {menuOpen ? (
-            <FaTimes className="menu-icon" onClick={() => setMenuOpen(false)} />
-          ) : (
-            <FaBars className="menu-icon" onClick={() => setMenuOpen(true)} />
-          )}
-        </div>
+        <button className="menu_icon" onClick={() => setMenuOpen(!menuOpen)} >Open</button>
       </nav>
     </>
   );

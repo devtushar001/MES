@@ -38,7 +38,7 @@ const GetAllUser = () => {
 
     useEffect(() => {
         getAllUserData();
-    }, [token, backend_url]); // ✅ Added dependencies for consistency
+    }, [token, backend_url]); 
 
     const userAccess = async (personId) => {
         if (!token) {
@@ -62,7 +62,6 @@ const GetAllUser = () => {
                 return;
             }
 
-            // ✅ Update state instead of refetching all users
             setAllUser((prevUsers) =>
                 prevUsers.map((user) =>
                     user._id === personId ? { ...user, access: true } : user
@@ -98,7 +97,6 @@ const GetAllUser = () => {
                 return;
             }
 
-            // ✅ Remove the user from the state instead of refetching
             setAllUser((prevUsers) => prevUsers.filter((user) => user._id !== personId));
 
             toast.warning(data.message || "User deleted successfully!");
@@ -130,7 +128,6 @@ const GetAllUser = () => {
                 return;
             }
 
-            // ✅ Update state without refetching
             setAllUser((prevUsers) =>
                 prevUsers.map((user) =>
                     user._id === personId ? { ...user, access: false } : user
