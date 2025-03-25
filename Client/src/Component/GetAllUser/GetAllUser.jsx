@@ -3,13 +3,9 @@ import { MesContext } from "../../Context/MesContextProvider";
 import { toast } from "react-toastify";
 import './GetAllUser.css';
 
-
-
-
 const GetAllUser = () => {
     const [allUser, setAllUser] = useState([]);
-    const { backend_url, token } = useContext(MesContext)
-
+    const { backend_url, token } = useContext(MesContext);
     const getAllUserData = async () => {
         if (!token) {
             toast.error("Authorization token is missing!");

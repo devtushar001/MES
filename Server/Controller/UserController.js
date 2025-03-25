@@ -294,3 +294,51 @@ export const GetAllUserController = async (req, res) => {
         });
     }
 };
+
+export const UserAccessController = async (req, res) => {
+    try {
+        const userId = req.user;
+        const { personId } = req.body; 
+
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "You should be authenticated."
+            });
+        }
+
+        const user = await UserModel.findById(userId); 
+
+        if (!user || !user.isVerified || !user.access) {
+            return res.status(403).json({ 
+                success: false,
+                message: "You are not authorized to edit these things."
+            });
+        }
+
+        const verificationPerson = await UserModel.findByIdAndUpdate(
+            personId,
+            { access: true },
+            { new: true }
+        );
+
+        if (!verificationPerson) {
+            return res.status(404).json({ 
+                success: false,
+                message: "This person is not available in the database."
+            });
+        }
+
+        return res.status(200).json({ 
+            success: true,
+            message: "User access updated successfully.",
+            user: verificationPerson
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: `API error: ${error.name} - ${error.message}`
+        });
+    }
+};

@@ -1,5 +1,5 @@
 import express from 'express';
-import { GetAllUserController, GetUserDetailsController, SendUserOtpController, UserLoginController, UserOTPVerifyController, UserRegistrationController, VerifyOtpController } from '../Controller/UserController.js';
+import { GetAllUserController, GetUserDetailsController, SendUserOtpController, UserAccessController, UserLoginController, UserOTPVerifyController, UserRegistrationController, VerifyOtpController } from '../Controller/UserController.js';
 import isAuth from '../Middlewares/isAuth.js';
 
 const UserRouter = express.Router();
@@ -11,5 +11,6 @@ UserRouter.post('/verify-otp', isAuth, UserOTPVerifyController);
 UserRouter.post('/verify', isAuth, VerifyOtpController);
 UserRouter.get('/get-user', isAuth, GetUserDetailsController);
 UserRouter.get('/all-users', isAuth, GetAllUserController);
+UserRouter.post('/access', isAuth, UserAccessController);
 
 export default UserRouter;

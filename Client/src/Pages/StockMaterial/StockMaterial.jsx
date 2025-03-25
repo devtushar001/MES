@@ -54,7 +54,6 @@ const UpdatedRawMaterial = () => {
         fetchProduct();
     }, [backend_url, searchQuery]);
 
-    // Create New Raw Material
     const createRawProduct = async () => {
         try {
             const res = await fetch(`${backend_url}/api/stock-material/create`, {
@@ -282,7 +281,9 @@ const UpdatedRawMaterial = () => {
                             }
                         })
                     }
+
                     <div className="input-system">
+
                         <select
                             onChange={(e) => setData(prev => ({ ...prev, changeType: e.target.value }))}
                             name="update-type"
@@ -291,6 +292,16 @@ const UpdatedRawMaterial = () => {
                             <option value="in">in</option>
                             <option value="out">out</option>
                         </select>
+                        <select name="sale-type" id="sale-type">
+                            <option value="Choose option" selected defaultChecked>Choose a option</option>
+                            <option value="Dealership">Dealership</option>
+                            <option value="Dealership">Amazon</option>
+                            <option value="Dealership">FlipKart</option>
+                            <option value="Dealership">Dmototeh</option>
+                            <option value="Dealership">Offline</option>
+                            <option value="Default">Default</option>
+                        </select>
+                        <input type="text" placeholder="Type message" />
                         <input onChange={(e) => setData((prev) => ({ ...prev, quantity: Number(e.target.value) }))} type="number" name="quantity" id="quantity" placeholder="Quantity" />
                         <button onClick={updateRawMaterial}>Submit</button>
                     </div>

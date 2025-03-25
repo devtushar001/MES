@@ -6,14 +6,14 @@
 }
 
 .updated-raw-material .updated-controll-form-btn {
-    width: 120%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
 }
 
 .updated-raw-material .updated-add-new-raw-material {
-    width: 120%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -155,17 +155,17 @@
 .edit-in-out .container .input-system {
     display: grid;
     grid-template-columns: 1fr 3fr 2fr;
-    height: 32px;
     gap: 5px;
 }
 
 .edit-in-out .container .input-system input,
 .edit-in-out .container .input-system select,
 .edit-in-out .container .input-system button {
-   border-radius: 20px;
-   border: 1px solid #fff;
-   padding-left: 10px;
-   outline: none;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    padding-left: 10px;
+    height: 32px;
+    outline: none;
 }
 
 .edit-in-out .container .input-system button {
