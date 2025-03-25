@@ -163,7 +163,6 @@ const UpdatedRawMaterial = () => {
                                 <p>No image selected</p>
                             )}
                         </div>
-
                         <div className="updated-material-name">
                             <input
                                 value={rawData.materialName}

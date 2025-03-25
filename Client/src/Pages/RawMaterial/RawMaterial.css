@@ -1,243 +1,31 @@
-/* General Styling */
 .updated-raw-material {
-    min-height: 100vh;
-    padding: 20px;
-    font-family: 'Poppins', Arial, sans-serif;
-    background-color: #f8f9fa;
+    max-width: 85vw;
+    margin: 30px auto;
 }
 
-/* Control Buttons & Search Bar */
-.updated-controll-form-btn {
+.updated-raw-material .updated-controll-form-btn {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 10px;
 }
 
-.updated-controll-form-btn button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s ease;
+.updated-raw-material .updated-controll-form-btn input,
+.updated-raw-material .updated-controll-form-btn button {
+    height: 32px;
 }
 
-.updated-controll-form-btn button:hover {
-    background-color: #0056b3;
+.updated-raw-material .updated-controll-form-btn input {
+    width: 340px;
 }
 
-.updated-controll-form-btn input {
-    height: 40px;
-    width: 100%;
-    max-width: 300px;
-    padding-left: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-/* Add New Material Form */
-.updated-add-new-raw-material {
-    display: flex;
-    flex-direction: column;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.updated-add-new-raw-material input,
-.updated-add-new-raw-material textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-}
-
-.updated-add-new-raw-material button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    margin-top: 15px;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: 0.3s ease;
-}
-
-.updated-add-new-raw-material button:hover {
-    background-color: #218838;
-}
-
-/* Table Styling */
-.updated-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Poppins', sans-serif;
-    background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.updated-table th, .updated-table td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-.updated-table thead {
-    background-color: #343a40;
-    color: #ffffff;
-}
-
-.updated-table tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-}
-
-.updated-table tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-.updated-img-thumbnail {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-}
-
-/* Buttons */
-.updated-btn {
-    padding: 6px 12px;
-    margin: 2px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 6px;
-    transition: 0.3s;
-}
-
-.updated-btn-primary {
-    background-color: #007bff;
-    color: white;
-}
-
-.updated-btn-primary:hover {
-    background-color: #0056b3;
-}
-
-.updated-btn-danger {
-    background-color: #dc3545;
-    color: white;
-}
-
-.updated-btn-danger:hover {
-    background-color: #a71d2a;
-}
-
-/* Edit Modal */
-.edit-in-out {
-    position: fixed;
-    z-index: 9000;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.edit-in-out .container {
-    position: relative;
-    width: 500px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-
-.edit-in-out h2 {
-    color: #333;
-}
-
-.edit-in-out .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #666;
-}
-
-.edit-in-out .product-details {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-}
-
-.edit-in-out .input-system {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.edit-in-out .input-system input,
-.edit-in-out .input-system select,
-.edit-in-out .input-system button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-.edit-in-out .input-system button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.edit-in-out .input-system button:hover {
-    background-color: #0056b3;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .updated-controll-form-btn {
+@media (max-width: 680px) {
+    .updated-raw-material .updated-controll-form-btn {
         flex-direction: column;
-        gap: 10px;
     }
 
-    .updated-table th,
-    .updated-table td {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .updated-btn {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-
-    .edit-in-out .container {
-        width: 90%;
-        padding: 15px;
-    }
-
-    .edit-in-out .product-details {
-        flex-direction: column;
-        text-align: center;
+    .updated-raw-material .updated-controll-form-btn input,
+    .updated-raw-material .updated-controll-form-btn button {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }

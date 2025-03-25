@@ -38,7 +38,7 @@ const GetAllUser = () => {
 
     useEffect(() => {
         getAllUserData();
-    }, [token, backend_url]); 
+    }, [token, backend_url]);
 
     const userAccess = async (personId) => {
         if (!token) {
@@ -144,7 +144,7 @@ const GetAllUser = () => {
     return (
         <div className="all-user">
             {allUser.map((item, i) => (
-                <div key={i}>
+                <div className="user-data-cont" key={i}>
                     <span>{item.name}</span>
                     <span>{item.email}</span>
                     <span>{item.isVerified ? "Verified" : "Not Verified"}</span>
@@ -157,9 +157,9 @@ const GetAllUser = () => {
                             <button onClick={() => userAccess(item._id)}>Pending Access</button>
                         )}
                     </span>
-                    <button className="delete-user" onClick={() => userDeletion(item._id)}>
-                        Delete User
-                    </button>
+                    <span>
+                        <button onClick={() => userDeletion(item._id)}>Delete User</button>
+                    </span>
                 </div>
             ))}
         </div>

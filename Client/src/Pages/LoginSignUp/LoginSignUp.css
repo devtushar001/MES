@@ -43,11 +43,12 @@
     padding-left: 12px;
 }
 
-.login-signup .auth-container .otp .otp-box input:focus{
+.login-signup .auth-container .otp .otp-box input:focus {
     border-color: #38b2ac;
 }
+
 .login-signup .auth-container .otp .otp-box button {
-    cursor: pointer; 
+    cursor: pointer;
     border: 1px solid #0fa79f;
     background-color: #0fa79f;
     color: #fff;
@@ -55,7 +56,7 @@
 
 .login-signup .auth-container .auth-box {
     display: flex;
-    width: 55rem;
+    max-width: 80vw;
     background: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -131,4 +132,21 @@
 
 .login-signup .auth-container .auth-toggle button:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 680px) {
+    .login-signup .auth-container .auth-box {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-width: 80vw;
+    }
+
+    .login-signup .auth-container .auth-left {
+        width: 100%;
+    }
+    .login-signup .auth-container .auth-right {
+        width: 80%;
+    }
+ 
 }
