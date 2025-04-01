@@ -214,55 +214,61 @@ const UpdatedRawMaterial = () => {
                     rawMaterials.length === 0 ? (
                         <p>No raw materials available. Please add one.</p>
                     ) : (
-                        <table className="updated-table updated-table-bordered updated-table-striped">
-                            <thead className="updated-table-dark">
-                                <tr>
-                                    <th>S.No.</th>
-                                    <th>Material Name</th>
-                                    <th>Image</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
-                                    <th>Color</th>
-                                    <th style={{ minWidth: "120px" }}>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {rawMaterials.map((material, index) => (
-                                    <tr key={material._id}>
-                                        <td>{index + 1}</td>
-                                        <td>{material.materialName}</td>
-                                        <td>
-                                            <img
-                                                src={material.imageUrl}
-                                                alt="Material"
-                                                className="updated-img-thumbnail"
-                                            />
-                                        </td>
-                                        <td>{material.description}</td>
-                                        <td>{material.quantity}</td>
-                                        <td>{material.color}</td>
-                                        <td>
-                                            <button
-                                                onClick={() => {
-                                                    setInOut(true);
-                                                    setProductId(material._id);
-                                                    setData(prev => ({ ...prev, ProductId: material._id }));
-                                                }}
-                                                className="updated-btn updated-btn-primary"
-                                            >
-                                                Update
-                                            </button>
-                                            <button
-                                                onClick={() => deleteRawProduct(material._id)}
-                                                className="updated-btn updated-btn-danger"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <div className="table-container">
+                            <div className="table-header">
+                                <span>S.No.</span>
+                                <span>Material Name</span>
+                                <span>Image</span>
+                                <span>Description</span>
+                                <span>Quantity</span>
+                                <span>Color</span>
+                                <span >Actions</span>
+                            </div>
+                            {rawMaterials.map((material, index) => (
+                                <div className="table-body">
+                                    <span>{index + 1}</span>
+                                    <span>{material.materialName}</span>
+                                    <span>
+                                        <img
+                                            src={material.imageUrl}
+                                            alt="Material"
+                                            className="updated-img-thumbnail"
+                                        />
+                                    </span>
+                                    <span>{material.description}</span>
+                                    <span>{material.quantity}</span>
+                                    <span>{material.color}</span>
+                                    <span>
+                                        <button
+                                            onClick={() => {
+                                                setInOut(true);
+                                                setProductId(material._id);
+                                                setData(prev => ({ ...prev, ProductId: material._id }));
+                                            }}
+                                            className="updated-btn updated-btn-primary"
+                                        >
+                                            Update
+                                        </button>
+                                        <button
+                                            onClick={() => deleteRawProduct(material._id)}
+                                            className="updated-btn updated-btn-danger"
+                                        >
+                                            Delete
+                                        </button>
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                        // <table className="updated-table updated-table-bordered updated-table-striped">
+                        //     <thead className="updated-table-dark">
+                        //         <tr>
+
+                        //         </tr>
+                        //     </thead>
+                        //     <tbody className="updated-table-dark" >
+
+                        //     </tbody>
+                        // </table>
                     )
                 )}
             </div >
@@ -274,7 +280,7 @@ const UpdatedRawMaterial = () => {
                         rawMaterials.map((item, i) => {
                             if (item._id === productId) {
                                 return (
-                                    <div style={{ padding: "10px", gap: "12px", display: "flex", alignItems: "center" }} key={i} className="product-details">
+                                    <div key={i} className="product-details">
                                         <img style={{ maxWidth: "110px" }} src={item.imageUrl} alt="" />
                                         <p>{item.materialName}&#44;</p>
                                         <p>Current-Qty: {item.quantity}</p>

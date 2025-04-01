@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Navbar.css";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { assets } from "../../Assets/Assets";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
@@ -12,7 +13,7 @@ const Navbar = () => {
         </div>
         <div className={`nav-menu ${menuOpen ? "open" : ""}`}>
           <ul>
-            <li>Home</li>
+            <Link className="no-style" to='/'><li>Home</li></Link>
             <li>Dashboard</li>
             <li>Stock item</li>
             <li>Raw item</li>
