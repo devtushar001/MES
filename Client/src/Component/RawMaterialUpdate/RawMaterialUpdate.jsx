@@ -38,51 +38,51 @@ const RawMaterialUpdate = () => {
     }, [fetchRecentUpdate]);
 
     return (
+
         <>
             <div className="recent-update">
                 <div className="filter-method">
-                    <h2>Today RAW Update!!!</h2>
-                    <div className="date-selecton">
+                    <h2>Recent updated stock.</h2>
+                    <div className="date-selection">
                         <p>Select Date</p>
                         <input
-                            onChange={(e) => setInputDate(e.target.value)}
-                            value={inputDate}
                             type="date"
                             name="date"
                             id="date"
+                            value={inputDate}
+                            onChange={(e) => setInputDate(e.target.value)}
                         />
-                        <button onClick={fetchRecentUpdate}>Search data</button>
+                        <button onClick={fetchRecentUpdate}>Search Data</button>
                     </div>
                 </div>
 
                 {fetchedData.length === 0 ? (
                     <p>No recent updates available.</p>
                 ) : (
-                    <table className="recent-update-table">
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Change Type</th>
-                                <th>Quantity</th>
-                                <th>Current Quantity</th>
-                                <th>Updated At</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {fetchedData.map((update) => (
-                                <tr key={update._id}>
-                                    <td >
-                                        <img src={update.ProductData.image} alt="" />
+                    <div className="table">
+                        <div className="table-head">
+                            <span>Product Name</span>
+                            <span>Change Type</span>
+                            <span>Quantity</span>
+                            <span>Current Quantity</span>
+                            <span>Updated At</span>
+                        </div>
+                        {fetchedData.map((update) => (
+                            <>
+                                <div key={update._id} className="table-body">
+                                    <span style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                                        <img style={{ maxWidth: "45px" }} src={update.ProductData.image} alt="" />
                                         {update.ProductData.name}
-                                    </td>
-                                    <td>{update.changeType.toLowerCase()}</td>
-                                    <td>{update.quantity}</td>
-                                    <td>{update.currentQuantity}</td>
-                                    <td>{readDate(update.updatedAt)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                    </span>
+                                    <span>{update.changeType.toLowerCase()}</span>
+                                    <span>{update.quantity}</span>
+                                    <span>{update.currentQuantity}</span>
+                                    <span>{readDate(update.updatedAt)}</span>
+                                </div>
+                                <hr />
+                            </>
+                        ))}
+                    </div>
                 )}
             </div>
         </>
