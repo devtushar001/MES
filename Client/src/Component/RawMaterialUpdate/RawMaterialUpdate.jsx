@@ -75,7 +75,7 @@ const RawMaterialUpdate = () => {
                                         {update.ProductData.name}
                                     </span>
                                     <span>{update.changeType.toLowerCase()}</span>
-                                    <span>{update.quantity}</span>
+                                    <span>  {update.quantity} {update.changeType === "in" ? "in" : "out"}</span>
                                     <span>{update.currentQuantity}</span>
                                     <span>{readDate(update.updatedAt)}</span>
                                 </div>

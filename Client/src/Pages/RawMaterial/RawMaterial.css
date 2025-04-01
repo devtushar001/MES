@@ -1,6 +1,7 @@
 .updated-raw-material {
     max-width: 85vw;
     margin: 30px auto;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .updated-raw-material .updated-controll-form-btn {
@@ -26,16 +27,41 @@
 .table-container .table-body {
     display: grid;
     margin-top: 50px;
-    grid-template-columns: 0.4fr 0.6fr 1fr 1fr 0.2fr 1fr 1fr;
+    grid-template-columns: 0.4fr 1fr 0.5fr 1fr 0.2fr 0.3fr 1fr;
+    gap: 5px;
+}
+
+.table-container .table-header {
+    border: 1px solid saddlebrown;
+    padding: 7px 12px;
+
+}
+
+.table-container .table-header span {
+    border: 1px solid seagreen;
+    padding: 7px 12px;
+    border-radius: 13px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-container .table-body span {
+    border: 1px solid salmon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
 }
 
 .table-container img {
-    width: 100%;
+    width: 80%;
 }
 
 .edit-in-out {
     width: 100%;
-    top: 0;
+    top: 50px;
     position: fixed;
     height: 100%;
     right: 0;

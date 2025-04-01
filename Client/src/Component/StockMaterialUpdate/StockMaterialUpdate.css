@@ -55,6 +55,7 @@
 }
 
 @media (max-width: 684px) {
+
     .recent-update .table .table-head,
     .recent-update .table .table-body {
         grid-template-columns: 1fr;
